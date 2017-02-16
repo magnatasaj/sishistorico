@@ -113,6 +113,7 @@ public class SvCadastraEleitor extends HttpServlet {
             int idretorno = daoEleitor.Eleitor_Salvar(el);
             daoFoto.inserirImagem(foto, idretorno);
             response.sendRedirect("cadastro_eleitor.jsp?msg='Salvo com sucesso!'");
+            
         } catch (FileUploadException ex) {
             Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {

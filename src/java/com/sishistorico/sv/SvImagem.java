@@ -5,33 +5,13 @@
  */
 package com.sishistorico.sv;
 
-import com.sishistorico.dao.DaoDespesa;
-import com.sishistorico.dao.DaoDespesaNivel;
 import com.sishistorico.dao.DaoFoto;
-import com.sishistorico.dao.DaoReceita;
-import com.sishistorico.objetos.Despesa;
-import com.sishistorico.objetos.Despesa_Niveis;
-import com.sishistorico.objetos.Receita;
-import com.sishistorico.objetos.ReceitaOrigem;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
@@ -65,7 +45,6 @@ public class SvImagem extends HttpServlet {
       byte[] buffer = new byte[bufferSize];
 
       while ((length = in.read(buffer)) != -1) {
-        System.out.println("writing " + length + " bytes");
         out.write(buffer, 0, length);
       }
 
