@@ -14,14 +14,9 @@ response.setHeader("Expires", "0"); // Proxies.
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
-    <link rel="shortcut icon" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-16x16.png" />
-<link rel="apple-touch-icon" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-57x57.png" />
-<link rel="apple-touch-icon" sizes="114x114" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-114x114.png" />
-<link rel="apple-touch-icon" sizes="72x72" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-72x72.png" />
-<link rel="apple-touch-icon" sizes="144x144" href="http://interativaconsultoria.com/wp-content/uploads/2016/03/favicon-144x144.png" />
+ 
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link href="css/demo.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="plugins/css/ionicons.min.css">

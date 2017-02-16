@@ -4,13 +4,17 @@
     Author     : Lamara
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="com.sishistorico.objetos.Eleitor"%>
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <%@page import="com.sishistorico.objetos.TipoEleitor"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!-- meta-data -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!-- meta-data -->
+<% DaoTipo daoTipo = new DaoTipo();%>
+<% DaoEleitor daoEleitor = new DaoEleitor();%>
+
+
 <!DOCTYPE html>
 <html>
     <%@include file="partes/meta-data.jsp" %>    
@@ -41,7 +45,7 @@
                     <div class="box-body">
                         <!-- Formulario inicio  -->
 
-                        <form data-toggle="validator" enctype="multipart/form-data"  method="post"  action="SvCadastrarEleitor">
+                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvCadastrarEleitor">
                             <div class="row">
                                 <!-- coluna um inicil  -->                            
                                 <div class="col-md-6"> 
@@ -224,13 +228,12 @@
                                                 TIPO:
                                             </div>
                                             <select class="selectpicker" data-live-search="true" name="tipo">
-                                                <% DaoTipo daoTipo = new DaoTipo(); %>
                                                 <%
                                                     for (TipoEleitor t : daoTipo.Lista_tipos()) {
                                                 %>
                                                 <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
                                                 <%
-                                                 }
+                                                    }
                                                 %>
 
                                             </select>
@@ -242,16 +245,17 @@
                                                 DEPÊNDENCIA:
                                             </div>
                                             <select class="selectpicker"  data-live-search="true" name="depende">
-                                                <% DaoEleitor daoEleitor = new DaoEleitor();
-                                             String [] ids = { "1", "2"};
-                                                
+                                                <option id="0" value="0"></option>
+
+                                                <% String ids = "2,3";
+
+
                                                 %>
-                                                <%
-                                                    for (Eleitor t : daoEleitor.Lista_Eleitor_Por_Tipo(ids)) {
+                                                <%                                                    for (Eleitor t : daoEleitor.Lista_Eleitor_Por_Tipo(ids)) {
                                                 %>
                                                 <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
                                                 <%
-                                                 }
+                                                    }
                                                 %>
                                             </select>
                                             <div class="help-block with-errors"></div>
@@ -267,10 +271,24 @@
                                 </div>
                             </div>
                         </form>
-                        <img src="SvImagem?id=10" />
                         <!-- fecha formulário -->
                     </div> 
                 </div>
+                <div class="box">
+                    <div class="box-header">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+        <%@include file="/partes/javascript.jsp" %> 
+
+                    <div class="box-body">
+                        <%@include file="in_usuarios.jsp"%>    
+                    </div>
+                </div>                               
             </div>
             <!-- #Fecha Conteúdo -->
 
@@ -280,7 +298,6 @@
 
         </div>
         <!-- js -->
-        <%@include file="/partes/javascript.jsp" %> 
 
         <!-- #Fecha js-->
     </body>

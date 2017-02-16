@@ -41,7 +41,6 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -61,6 +60,8 @@ public class SvCadastraEleitor extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         request.setCharacterEncoding("UTF8");
+         
         response.setContentType("image/gif");
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         List<FileItem> items = null;
@@ -91,31 +92,29 @@ public class SvCadastraEleitor extends HttpServlet {
             DateFormat formatter;
             Date date;
             formatter = new SimpleDateFormat("dd/MM/yyyy");
-            System.out.println("@@@@@@@@@@@@data" + items.get(1).getString());
             date = (Date) formatter.parse(items.get(1).getString());
-
             // fim do tratamento        
             Eleitor el = new Eleitor();
             Endereco end = new Endereco();
-            el.setNome(items.get(0).getString());
+            el.setNome(items.get(0).getString("UTF-8"));
             el.setData_nascimento(date);
-            el.setCpf(items.get(2).getString().replaceAll("\\.|\\-|\\ ", ""));
-            el.setRg(items.get(3).getString().replaceAll("\\.|\\-|\\ ", ""));
-            el.setSus(items.get(4).getString().replaceAll("\\.|\\-|\\ ", ""));
-            el.setEmail(items.get(5).getString());
-            el.setTelefone(items.get(6).getString().replaceAll("\\(|\\)|\\-|\\ ", ""));
-            el.setWhats(items.get(7).getString().replaceAll("\\(|\\)|\\-|\\ ", ""));
-            el.setObs(items.get(8).getString());
-            el.setReferencia_pessoal(items.get(9).getString());
+            el.setCpf(items.get(2).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
+            el.setRg(items.get(3).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
+            el.setSus(items.get(4).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
+            el.setEmail(items.get(5).getString("UTF-8"));
+            el.setTelefone(items.get(6).getString("UTF-8").replaceAll("\\(|\\)|\\-|\\ ", ""));
+            el.setWhats(items.get(7).getString("UTF-8").replaceAll("\\(|\\)|\\-|\\ ", ""));
+            el.setObs(items.get(8).getString("UTF-8"));
+            el.setReferencia_pessoal(items.get(9).getString("UTF-8"));
 
-            end.setRua(items.get(11).getString());
-            end.setBairro(items.get(12).getString());
-            end.setN(items.get(13).getString());
-            end.setCidade(items.get(14).getString());
-            end.setCep(items.get(15).getString());
-            end.setLocalidade(Integer.parseInt(items.get(16).getString()));
-            el.setTipo(Integer.parseInt(items.get(17).getString()));
-            el.setPertence(Integer.parseInt(items.get(18).getString()));
+            end.setRua(items.get(11).getString("UTF-8"));
+            end.setBairro(items.get(12).getString("UTF-8"));
+            end.setN(items.get(13).getString("UTF-8"));
+            end.setCidade(items.get(14).getString("UTF-8"));
+            end.setCep(items.get(15).getString("UTF-8"));
+            end.setLocalidade(Integer.parseInt(items.get(16).getString("UTF-8")));
+            el.setTipo(Integer.parseInt(items.get(17).getString("UTF-8")));
+            el.setPertence(Integer.parseInt(items.get(18).getString("UTF-8")));
 
             el.setEnd(end);
             DaoEleitor daoEleitor = new DaoEleitor();

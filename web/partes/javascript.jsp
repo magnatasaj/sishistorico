@@ -10,7 +10,7 @@
 })  
     </script>
 <!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script src="plugins/jQueryUI/jquery-ui.min.js" type="text/javascript"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script src="/<%out.print(Propriedade.getApp());%>/legenda/legend.js" type="text/javascript"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -32,8 +32,7 @@
 <script src="plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
 <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<script src="https://longbill.github.io/jquery-date-range-picker/dist/jquery.daterangepicker.min.js" type="text/javascript"></script>
-
+<script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 <!-- datepicker -->
 <script src="dist/js/teste.js"></script>
 <script src="plugins/datepicker/bootstrap-datepicker.min.js"></script>
@@ -61,6 +60,7 @@
 <script src="plugins/datatables/ex/dataTables.buttons.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/jszip.min.js" type="text/javascript"></script>
 <script src="plugins/datatables/ex/pdfmake.min.js" type="text/javascript"></script>
+<script src="plugins/datatables/ex/bk_vfs_fonts.js" type="text/javascript"></script>
 <script src="plugins/highcharts/highcharts.js"></script>
 <script src="plugins/highcharts/modules/exporting.js"></script>
 <!-- uploade file java scrip -->

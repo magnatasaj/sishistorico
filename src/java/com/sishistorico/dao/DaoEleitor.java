@@ -71,18 +71,19 @@ public class DaoEleitor {
 
     }
     
-     public List<Eleitor> Lista_Eleitor_Por_Tipo(String [] ids) throws SQLException, ClassNotFoundException {
+     public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `id` = ?";
+        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+")";
         ps = conexao.prepareStatement(sql);
-        Array aArray = conexao.createArrayOf("VARCHAR", ids);
-        ps.setArray(0, aArray);
+        //ps.setString(1, "1,2");
         rs = ps.executeQuery();
         List<Eleitor> l = new ArrayList();
          while (rs.next()) {
              Eleitor eleitor = new Eleitor();
              eleitor.setId(rs.getInt("id"));
              eleitor.setNome(rs.getString("nome"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
              l.add(eleitor);
              
          }
@@ -90,6 +91,27 @@ public class DaoEleitor {
         return l;
 
     }
+     
+    public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT * FROM `his_eleitor` WHERE `id` = ?";
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        Eleitor eleitor = new Eleitor();
+         while (rs.next()) {
+             
+             eleitor.setId(rs.getInt("id"));
+             eleitor.setNome(rs.getString("nome"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
+             
+             
+         }
+        
+        return eleitor;
+
+    } 
 
     public Eleitor Obj_Aluno(String id) throws SQLException {
 
