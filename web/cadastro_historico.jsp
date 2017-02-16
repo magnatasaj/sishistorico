@@ -79,7 +79,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                                TIPO:
+                                                TIPO de Histórico:
                                             </div>
                                             <select class="selectpicker" data-live-search="true" name="tipo">
                                                 <%

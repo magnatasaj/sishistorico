@@ -45,7 +45,7 @@
                     <div class="box-body">
                         <!-- Formulario inicio  -->
 
-                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvCadastrarEleitor">
+                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvEleitor">
                             <div class="row">
                                 <!-- coluna um inicil  -->                            
                                 <div class="col-md-6"> 
@@ -162,7 +162,7 @@
                                                             </div>
                                                         </div></div>
                                                     <div tabindex="200" class="btn btn-primary btn-file">
-                                                        <input id="foto" name="foto" class="file" type="file" multiple="" data-min-file-count="1"></div>
+                                                        <input  id="foto" name="foto" class="file" type="file" multiple="" data-min-file-count="1"></div>
                                                 </div></div>
                                         </div></div>
 
@@ -286,7 +286,7 @@
         <%@include file="/partes/javascript.jsp" %> 
 
                     <div class="box-body">
-                        <%@include file="in_usuarios.jsp"%>    
+                       <%@include file="in_usuarios.jsp"%>    
                     </div>
                 </div>                               
             </div>
@@ -315,8 +315,11 @@
         resizePreference: 'width',
         footer: false,
         overwriteInitial: false,
-        initialPreviewAsData: true
+        initialPreviewAsData: true,
+        initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
+    initialPreviewFileType: 'image' // image is the default and can be overridden in config below
 
 
     });
+    
 </script>

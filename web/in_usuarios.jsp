@@ -39,8 +39,8 @@
         <td><% out.print(d.getObs()); %></td>
         <td><% out.print(d.getData_nascimento()); %></td>
         <td><% out.print(d.getTipo()); %></td>
-        <td><a>Editar</a>-
-            <a>excluir</a>-
+        <td><a id="ed" onclick="setfoto()">Editar</a>-
+            <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>
 
