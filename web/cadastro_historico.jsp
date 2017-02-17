@@ -62,9 +62,11 @@
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
+                                            <input type="text"  readonly="true" hide name="id"  value="<% out.print(el.getId()); %>" id="nascimento">
+
                                                 NOME COMPLETO:
                                             </div>
-                                            <input type="text"  readonly="true"  class="form-control pull-right bg-aqua" name="nascimento"  value=" <% out.print(el.getNome()); %>" id="nascimento">
+                                            <input type="text"  readonly="true"  class="form-control pull-right bg-aqua" name="nome"  value=" <% out.print(el.getNome()); %>" id="nome">
                                         </div>
                                     </div>
                                     <div class="form-group">

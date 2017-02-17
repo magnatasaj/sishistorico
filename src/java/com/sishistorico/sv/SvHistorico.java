@@ -67,21 +67,7 @@ public class SvHistorico extends HttpServlet {
         byte[] foto = null;
         try {
             items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            for (FileItem item : items) {
-                if (item.isFormField()) {
-
-                } else {
-                    InputStream imageInput = item.getInputStream();
-                    Image image = ImageIO.read(imageInput);
-                    BufferedImage thumb = Imagem.redimensionar(image, 400, 500);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ImageIO.write(thumb, "JPG", baos);
-                    	baos.flush();
-                        foto = baos.toByteArray();
-                        baos.close();
-                }
-            }
-         DateFormat formatter;
+            DateFormat formatter;
             Date date;
             formatter = new SimpleDateFormat("dd/MM/yyyy");
             date = (Date) formatter.parse(items.get(1).getString());
