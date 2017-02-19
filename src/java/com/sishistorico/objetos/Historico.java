@@ -111,6 +111,15 @@ public class Historico {
     public int getSituacao() {
         return situacao;
     }
+    
+    public String getSituacaoString() {
+        if(situacao == 1){
+            return "Ativa";
+        }else if(situacao == 2){
+        return "Finalizado";
+        }
+        return "Indefinido";
+    }
 
     /**
      * @param situacao the situacao to set

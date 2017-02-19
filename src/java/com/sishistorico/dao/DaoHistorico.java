@@ -6,12 +6,13 @@
 package com.sishistorico.dao;
 
 import com.sishistorico.objetos.Eleitor;
-import java.sql.Array;
+import com.sishistorico.objetos.Historico;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  *
  * @author lubuntu
  */
-public class DaoEleitor {
+public class DaoHistorico {
 
     private PreparedStatement ps = null;
     private PreparedStatement ps2 = null;
@@ -27,7 +28,7 @@ public class DaoEleitor {
     private Jdbc con = new Jdbc();
     private final Connection conexao;
 
-    public DaoEleitor() throws SQLException, ClassNotFoundException {
+    public DaoHistorico() throws SQLException, ClassNotFoundException {
         this.conexao = con.criarconexcao();
     }
 
@@ -36,60 +37,49 @@ public class DaoEleitor {
 
     }
 
-    public int Eleitor_Salvar(Eleitor el) throws SQLException, ClassNotFoundException {
+    public void historico_Salvar(Historico hi) throws SQLException, ClassNotFoundException {
 
-        String sql = "INSERT INTO `sishistorico`.`his_eleitor` (`id`, `nome`, `cpf`, `rg`, `email`, `telefone`, `whats`, `tipo`, `sus`, `obs`, `referencia`, `pertence`, `nascimento`) VALUES "
-                + "                                            (NULL, ?,?,?,?,?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO `sishistorico`.`his_historico` (`id`, `data_entrada`, `data_agendada`, `tipo`, `situacao`, `solicitacao`, `id_eleitor`) "
+                + "                                       VALUES (NULL, ?, ?, ?, ?, ?, ?);";
         ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ps.setString(1, el.getNome());
-        ps.setString(2, el.getCpf());
-        ps.setString(3, el.getRg());
-        ps.setString(4, el.getEmail());
-        ps.setString(5, el.getTelefone());
-        ps.setString(6, el.getWhats());
-        ps.setInt(7, el.getTipo());
-        ps.setString(8, el.getSus());
-        ps.setString(9, el.getObs());
-        ps.setString(10, el.getReferencia_pessoal());
-        ps.setInt(11, el.getPertence());
-        ps.setDate(12, new java.sql.Date(el.getData_nascimento().getTime()));
-
-        ps.executeUpdate();
-        ResultSet rs = ps.getGeneratedKeys();
-        int id = 0;
-        while (rs.next()) {
-            id = rs.getInt(1);
-
+        ps.setDate(1, new java.sql.Date(hi.getData_entrada().getTime()));
+        if(hi.getData_agendada() != null){
+        ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
+        }else{
+        ps.setNull(2,Types.DATE);
         }
-        if (id != 0) {
-            DaoEndereco end = new DaoEndereco();
-            el.setId(id);
-            end.Endereco_Salvar(el);
-        }
-        ps.close();
-        return id;
+        ps.setInt(3, hi.getTipo());
+        ps.setInt(4, hi.getSituacao());
+        ps.setString(5, hi.getSolicitacao());
+        ps.setInt(6, hi.getId_eleitor());
+        
+
+        ps.execute();
+        
 
     }
     
-     public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
+     public List<Historico> Lista_Historico_Eleitor(int id) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+")";
+        String sql = "SELECT * FROM `his_historico` WHERE `id_eleitor` = ?";
         ps = conexao.prepareStatement(sql);
-        //ps.setString(1, "1,2");
+        ps.setInt(1, id);
         rs = ps.executeQuery();
-        List<Eleitor> l = new ArrayList();
+        List<Historico> h = new ArrayList();
          while (rs.next()) {
-             Eleitor eleitor = new Eleitor();
-             eleitor.setId(rs.getInt("id"));
-             eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
-             eleitor.setTipo(rs.getInt("tipo"));
-             eleitor.setData_nascimento(rs.getDate("nascimento"));
-             l.add(eleitor);
+             Historico hi = new Historico();
+             hi.setId(rs.getInt("id"));
+             hi.setId_eleitor(rs.getInt("id_eleitor"));
+             hi.setData_entrada(rs.getDate("data_entrada"));
+             hi.setData_agendada(rs.getDate("data_agendada"));
+             hi.setSituacao(rs.getInt("situacao"));
+             hi.setSolicitacao(rs.getString("solicitacao"));
+             hi.setTipo(rs.getInt("tipo"));
+             h.add(hi);
              
          }
         
-        return l;
+        return h;
 
     }
      

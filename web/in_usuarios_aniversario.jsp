@@ -1,21 +1,28 @@
 
 <%@page import="com.sishistorico.dao.DaoTipo"%>
+<%@page import="com.sishistorico.funcao.Data"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="com.sishistorico.funcao.CaucularDias"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sishistorico.objetos.Eleitor"%>
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
-
+<%DaoEleitor daoEleitor = new DaoEleitor(); %>
+<% Date data = new Date(System.currentTimeMillis());
+%>
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
-<h1> Últimos cadastros</h1>
+<h1>Reltório de aniversariantes</h1>
 <table id="tbniveis" cellspacing="0" width="99%" class="table table-bordered table-hover dataTable" role="grid" >
 
 
     <thead>
     <th class="sorting">id</th>
     <th class="sorting">Nome</th>
-    <th class="sorting">Obs</th>
-    <th class="sorting">Data/Na</th>
+    <th class="sorting">Vai Fazer</th>
+    <th class="sorting">Falta/Dias</th>
+    <th class="sorting">Data/Nascimento</th>
     <th class="sorting">Tipo</th>
     <th class="sorting">Ação</th>
 
@@ -28,17 +35,28 @@
 <tbody>
     <% String tipos = "1,2,3";
         List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
-        
+                DaoTipo daoTipo = new DaoTipo();
+
         for (Eleitor d : el) {
-            
+
 
     %>  
     <tr>
         <td><% out.print(d.getId()); %></td>
-       <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
+        <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
         <td><% out.print(d.getNome()); %>
-        <td><% out.print(d.getObs()); %></td>
-        <td><% out.print(d.getData_nascimento()); %></td>
+        <td><% out.print(CaucularDias.calculaIdade(d.getData_nascimento())+1); %> anos</td>
+
+        <td><% 
+            long falta = CaucularDias.calcular(d.getData_nascimento(), data);
+            if(falta == 0){
+            out.print("É hoje");
+            }else{
+            out.print(falta+" dia(s)");    
+            }%> 
+            </td>
+        
+        <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
         <td><a id="ed" onclick="setfoto()">Editar</a>-
             <a on>excluir</a>-
@@ -59,13 +77,13 @@
 <!-- #Fecha js-->
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
 
         $('#tbniveis').DataTable({
             "ordering": true,
             "scrollX": true,
-            "order": [[0, 'desc']],
+            "order": [[3, 'desc']],
             "autoWidth": true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
             dom: 'l,Bfrtip',

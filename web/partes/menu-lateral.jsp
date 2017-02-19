@@ -10,7 +10,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
         <div class="pull-left image" style="min-height: 40px">
-          <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
+         <!-- <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image"> -->
         </div>
             <div class="pull-left info" style="color: #FFF">
                  <p>APP: <%out.print(Propriedade.getNome()); %></p>
@@ -30,52 +30,32 @@
             <li class="header">MENU DE NAVEGAÇÃO</li>
             <li class="active treeview " >
                 <a style="border-left-color: #f00" href="#">
-                    <i class="fa fa-arrow-circle-down" style="color: #f00"></i> <span>Despesas</span>
+                    <i class="fa fa-arrow-circle-down" style="color: #f00"></i> <span>Usuários</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="areas.jsp"><i class="fa fa-angle-right"></i>Áreas</a></li>
-                    <li><a href="entrada-despesa.jsp"><i class="fa fa-angle-right"></i>Entrada de Despesas</a></li>
-                    <li><a href="buscar-despesa.jsp"><i class="fa fa-angle-right"></i>Buscar Despesas</a></li>
+                    <li><a href="cadastro_eleitor.jsp"><i class="fa fa-angle-right"></i>Cadastro de usuário</a></li>
+                    <li><a href="buscar-eleitor.jsp"><i class="fa fa-angle-right"></i>Buscar usuários</a></li>
 
                 </ul>
             </li>
             <li class="active treeview">
                 <a style="border-left-color: green" href="#">
                     <i class="fa fa-arrow-circle-up" style="color: green"></i>
-                    <span>Receita</span>
+                    <span>Históricos</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="entrada-receita.jsp"><i class="fa fa-angle-right"></i>Entrada de Receita</a></li>
-                    <li><a href="buscar-receita.jsp"><i class="fa fa-angle-right"></i>Buscar Receita</a></li>
+                    <li><a href="selecioanr_usuario.jsp"><i class="fa fa-angle-right"></i>Cadastrar histórico</a></li>
+                    <li><a href="buscar-historico.jsp"><i class="fa fa-angle-right"></i>Buscar hisórico</a></li>
 
                 </ul>
             </li>
-            <% if(al.getTipo() == 1){ %>
-            <li class="active treeview">
-                <a style="border-left-color: #005983" href="#">
-                    <i class="fa  fa-area-chart" style="color: #005983"></i>
-                    <span>Resultados</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="despesa-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico despesas</a></li>
-                    <li><a href="receita-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receitas</a></li>
-                    <li><a href="de_x_re-grafico.jsp"><i class="fa fa-angle-right"></i>Gráfico receitas x despesas</a></li>
-
-
-
-
-                </ul>
-            </li>
-             <li class="active treeview">
+           <li class="active treeview">
                 <a style="border-left-color: #FF7E00" href="#">
                     <i class="fa  fa-area-chart" style="color: #FF7E00"></i>
                     <span>Relatórios</span>
@@ -84,14 +64,12 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Receita</a></li>
-
-
-
-
+                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Lideres</a></li>
+                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Familiar</a></li>
+                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Simples</a></li>
+                    <li><a href="aniversariante.jsp"><i class="fa fa-angle-right"></i>Aniversariantes do mês</a></li>
                 </ul>
             </li>
-            <% };%>
                       
    <li class="active treeview">
                 <a style="border-left-color: #FFf" href="#">

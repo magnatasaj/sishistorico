@@ -7,10 +7,12 @@ package com.sishistorico.sv;
 
 import com.sishistorico.dao.DaoEleitor;
 import com.sishistorico.dao.DaoFoto;
+import com.sishistorico.dao.DaoHistorico;
 import com.sishistorico.dao.Propriedade;
 import com.sishistorico.funcao.Imagem;
 import com.sishistorico.objetos.Eleitor;
 import com.sishistorico.objetos.Endereco;
+import com.sishistorico.objetos.Historico;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -58,57 +60,42 @@ public class SvHistorico extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         request.setCharacterEncoding("UTF8");
-         
-        response.setContentType("image/gif");
+        request.setCharacterEncoding("UTF8");
+        response.setContentType("text/html;charset=UTF-8");
+
         List<FileItem> items = null;
-        byte[] foto = null;
         try {
             items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+
             DateFormat formatter;
-            Date date;
+            Date data_entrada;
+            Date data_agendada = null;
             formatter = new SimpleDateFormat("dd/MM/yyyy");
-            date = (Date) formatter.parse(items.get(1).getString());
+            data_entrada = (Date) formatter.parse(items.get(2).getString());
+            if (!items.get(4).getString().equals("")) {
+                data_agendada = (Date) formatter.parse(items.get(4).getString());
+            }
+
             // fim do tratamento        
-            Eleitor el = new Eleitor();
-            Endereco end = new Endereco();
-            el.setNome(items.get(0).getString("UTF-8"));
-            el.setData_nascimento(date);
-            el.setCpf(items.get(2).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
-            el.setRg(items.get(3).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
-            el.setSus(items.get(4).getString("UTF-8").replaceAll("\\.|\\-|\\ ", ""));
-            el.setEmail(items.get(5).getString("UTF-8"));
-            el.setTelefone(items.get(6).getString("UTF-8").replaceAll("\\(|\\)|\\-|\\ ", ""));
-            el.setWhats(items.get(7).getString("UTF-8").replaceAll("\\(|\\)|\\-|\\ ", ""));
-            el.setObs(items.get(8).getString("UTF-8"));
-            el.setReferencia_pessoal(items.get(9).getString("UTF-8"));
+            Historico hi = new Historico();
+            hi.setId_eleitor(Integer.parseInt(items.get(0).getString().trim()));
+            hi.setData_entrada(data_entrada);
+            hi.setTipo(Integer.parseInt(items.get(3).getString().trim()));
+            hi.setData_agendada(data_agendada);
+            hi.setSituacao(Integer.parseInt(items.get(7).getString().trim()));
+            hi.setSolicitacao(items.get(5).getString("UTF-8").trim());
 
-            end.setRua(items.get(11).getString("UTF-8"));
-            end.setBairro(items.get(12).getString("UTF-8"));
-            end.setN(items.get(13).getString("UTF-8"));
-            end.setCidade(items.get(14).getString("UTF-8"));
-            end.setCep(items.get(15).getString("UTF-8"));
-            end.setLocalidade(Integer.parseInt(items.get(16).getString("UTF-8")));
-            el.setTipo(Integer.parseInt(items.get(17).getString("UTF-8")));
-            el.setPertence(Integer.parseInt(items.get(18).getString("UTF-8")));
-
-            el.setEnd(end);
-            DaoEleitor daoEleitor = new DaoEleitor();
-            DaoFoto daoFoto = new DaoFoto();
-            int idretorno = daoEleitor.Eleitor_Salvar(el);
-            daoFoto.inserirImagem(foto, idretorno);
-            response.sendRedirect("cadastro_eleitor.jsp?msg='Salvo com sucesso!'");   
+            DaoHistorico daoHistorico = new DaoHistorico();
+            daoHistorico.historico_Salvar(hi);
+            response.sendRedirect("cadastro_historico.jsp?id=" + hi.getId_eleitor() + "&msg='Salvo com sucesso!'");
         } catch (FileUploadException ex) {
-            Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
 
     }
 

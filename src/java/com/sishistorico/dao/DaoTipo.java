@@ -50,5 +50,22 @@ public class DaoTipo {
         
         return lista;
     }
+    
+    public TipoEleitor Obj_tipos(int id) throws SQLException {
+        String sql = "SELECT * FROM `his_tipo` where id = ?";
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        TipoEleitor tipoEleitor = new TipoEleitor();
+        while (rs.next()) {
+            
+            tipoEleitor.setId(rs.getInt(1));
+            tipoEleitor.setNome(rs.getString(2));
+            
+                       
+        }
+        
+        return tipoEleitor;
+    }
 
 }

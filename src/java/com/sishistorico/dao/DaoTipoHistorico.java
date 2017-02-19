@@ -51,5 +51,23 @@ public class DaoTipoHistorico {
         
         return lista;
     }
+    
+     public TipoHistorico Obj_tipos_Historico(int id) throws SQLException {
+        String sql = "SELECT * FROM `his_tipo_historico`WHERE `id` =?";
+        
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        rs = ps.executeQuery();
+        TipoHistorico tipoHistorico = new TipoHistorico();
+        while (rs.next()) {
+            
+            tipoHistorico.setId(rs.getInt(1));
+            tipoHistorico.setNome(rs.getString(2));
+            
+                       
+        }
+        
+        return tipoHistorico;
+    }
 
 }

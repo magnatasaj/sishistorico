@@ -21,6 +21,7 @@
             int id = Integer.parseInt(request.getParameter("id"));
 
             el = daoEleitor.Obj_Eleitor(id);
+
         } catch (NumberFormatException ex) {
             out.print("id inválido");
             return;
@@ -32,9 +33,18 @@
 
 <!DOCTYPE html>
 <html>
-    <%@include file="partes/meta-data.jsp" %>    
+    <%@include file="partes/meta-data.jsp" %>
+
     <!-- #Meta-data ------------------------------------------------------------------------------------------------->
     <body class="hold-transition skin-blue sidebar-mini">
+        <div class="pull-right-container fixed" style=" z-index: 500; margin-left: 70%; margin-top: 2%; max-width: 30%">
+                            <div id="alert" class="alert alert-success fade">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Sucesso!</strong>
+                                <div id="msg">
+                                </div>    
+                            </div>
+                        </div> 
         <div class="wrapper">
             <!-- Menu-Topo -->   
             <%@include file="partes/menu-topo.jsp" %>    
@@ -45,6 +55,7 @@
             <!--#FEcha  Menu-lateral -->
 
             <!-- Conteúdo ------------------------------------------------------------------------------------------------->
+              
             <div class="content-wrapper">
                 <div class="box">
                     <div class="box-header">
@@ -53,17 +64,25 @@
                     </div>
 
                     <div class="box-body">
+                         
+                       
                         <!-- Formulario inicio  -->
-
-                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvCadastrarEleitor">
+                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvHistorico">
                             <div class="row">
                                 <!-- coluna um inicil  -->                            
-                                <div class="col-md-8"> 
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                            <input type="text"  readonly="true" hide name="id"  value="<% out.print(el.getId()); %>" id="nascimento">
+                                                CÓDIGO:
+                                            </div>
+                                            <input type="text" class="form-control pull-right bg-aqua"  readonly="true" hide name="id"  value="<% out.print(el.getId()); %>" id="nascimento">
 
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12 input-group">
+                                            <div class="input-group-addon text-bold">
                                                 NOME COMPLETO:
                                             </div>
                                             <input type="text"  readonly="true"  class="form-control pull-right bg-aqua" name="nome"  value=" <% out.print(el.getNome()); %>" id="nome">
@@ -127,19 +146,19 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                        <div class="col-md-12 input-group">
-                                            <div class="input-group-addon text-bold">
-                                                Situação:
-                                            </div>
-                                            <select class="selectpicker" data-live-search="true" name="st">
-                                               
-                                                <option id="1" value="1">Ativo</option>
-                                                <option id="2" value="2">Finalizado</option>
-                                               
+                                    <div class="col-md-12 input-group">
+                                        <div class="input-group-addon text-bold">
+                                            Situação:
+                                        </div>
+                                        <select class="selectpicker" data-live-search="true" name="st">
 
-                                            </select>
-                                            <div class="help-block with-errors"></div>
-                                        </div></div>        
+                                            <option id="1" value="1">Ativo</option>
+                                            <option id="2" value="2">Finalizado</option>
+
+
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                    </div></div>        
                             </div>
                     </div>
 
@@ -167,6 +186,11 @@
                 <%@include file="/partes/javascript.jsp" %> 
 
                 <div class="box-body">
+                    <% int id = el.getId();%>
+                    <jsp:include page="in_historico.jsp" >
+                        <jsp:param name="id" value="<%=id%>" />
+
+                    </jsp:include>
                 </div>
             </div>                               
         </div>
@@ -185,6 +209,25 @@
 
 <script>
 
-    $('#sol').wysihtml5();
+    $(document).ready(function () {
+        var url = location.href;
+        if (url.indexOf("msgok") == -1) {
 
+        } else {
+            document.getElementById("msg").innerHTML = "O hitórico foi salvo!"; 
+            $("#alert").delay(2000).addClass("in").fadeOut(4000);
+
+        }
+    });
+    
+
+    $('#sol').wysihtml5();
+$('#data_entrada,#agendado').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR',
+                defaultDate: new Date()
+
+            });
+            $('#data_entrada').datepicker("update", new Date());
 </script>

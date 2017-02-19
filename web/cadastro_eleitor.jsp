@@ -20,6 +20,14 @@
     <%@include file="partes/meta-data.jsp" %>    
     <!-- #Meta-data ------------------------------------------------------------------------------------------------->
     <body class="hold-transition skin-blue sidebar-mini">
+        <div class="pull-right-container fixed" style=" z-index: 500; margin-left: 70%; margin-top: 2%; max-width: 30%">
+                            <div id="alert" class="alert alert-success fade">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>Sucesso!</strong>
+                                <div id="msg">
+                                </div>    
+                            </div>
+                        </div> 
         <div class="wrapper">
             <!-- Menu-Topo -->   
             <%@include file="partes/menu-topo.jsp" %>    
@@ -304,6 +312,16 @@
 </html>
 
 <script>
+ $(document).ready(function () {
+        var url = location.href;
+        if (url.indexOf("msgok") == -1) {
+
+        } else {
+            document.getElementById("msg").innerHTML = "Salvo com sucesso!"; 
+            $("#alert").delay(2000).addClass("in").fadeOut(4000);
+
+        }
+    });
 
     $("#foto").fileinput({
         language: "pt",
@@ -321,5 +339,14 @@
 
 
     });
+    
+     $('#nascimento').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR',
+                defaultDate: new Date()
+
+            });
+            $('#ddata').datepicker("update", new Date());
     
 </script>
