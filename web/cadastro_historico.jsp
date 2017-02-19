@@ -4,14 +4,16 @@
     Author     : Lamara
 --%>
 
+<%@page import="com.sishistorico.dao.DaoEleitor"%>
+<%@page import="com.sishistorico.dao.DaoTipoHistorico"%>
+<%@page import="com.sishistorico.objetos.TipoHistorico"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="com.sishistorico.objetos.Eleitor"%>
-<%@page import="com.sishistorico.dao.DaoEleitor"%>
 <%@page import="com.sishistorico.objetos.TipoEleitor"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!-- meta-data -->
-<% DaoTipo daoTipo = new DaoTipo();%>
+<% DaoTipoHistorico daoTipoHistorico = new DaoTipoHistorico();%>
 <% DaoEleitor daoEleitor = new DaoEleitor();
     Eleitor el = new Eleitor();
     if (request.getParameter("id") != null) {
@@ -60,9 +62,11 @@
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
+                                            <input type="text"  readonly="true" hide name="id"  value="<% out.print(el.getId()); %>" id="nascimento">
+
                                                 NOME COMPLETO:
                                             </div>
-                                            <input type="text"  readonly="true"  class="form-control pull-right bg-aqua" name="nascimento"  value=" <% out.print(el.getNome()); %>" id="nascimento">
+                                            <input type="text"  readonly="true"  class="form-control pull-right bg-aqua" name="nome"  value=" <% out.print(el.getNome()); %>" id="nome">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -72,18 +76,18 @@
                                                 Data de Entrada:
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text"  class="form-control pull-right" name="nascimento" id="nascimento">
+                                            <input type="text"  class="form-control pull-right" name="data_entrada" id="data_entrada">
 
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                                TIPO:
+                                                TIPO de Histórico:
                                             </div>
                                             <select class="selectpicker" data-live-search="true" name="tipo">
                                                 <%
-                                                    for (TipoEleitor t : daoTipo.Lista_tipos()) {
+                                                    for (TipoHistorico t : daoTipoHistorico.Lista_tipos_Historico()) {
                                                 %>
                                                 <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
                                                 <%
@@ -100,7 +104,7 @@
                                                 Data de agendada:
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text"  class="form-control pull-right" name="nascimento" id="nascimento">
+                                            <input type="text"  class="form-control pull-right" name="agendado" id="agendado">
 
                                         </div>
                                     </div>
@@ -127,7 +131,7 @@
                                             <div class="input-group-addon text-bold">
                                                 Situação:
                                             </div>
-                                            <select class="selectpicker" data-live-search="true" name="tipo">
+                                            <select class="selectpicker" data-live-search="true" name="st">
                                                
                                                 <option id="1" value="1">Ativo</option>
                                                 <option id="2" value="2">Finalizado</option>
@@ -181,20 +185,6 @@
 
 <script>
 
-    $("#foto").fileinput({
-        language: "pt",
-        showUpload: false,
-        showCaption: false,
-        resizeImage: true,
-        maxImageWidth: 200,
-        maxImageHeight: 200,
-        resizePreference: 'width',
-        footer: false,
-        overwriteInitial: false,
-        initialPreviewAsData: true
-
-
-    });
     $('#sol').wysihtml5();
 
 </script>

@@ -46,8 +46,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author lubuntu
  */
-@WebServlet(name = "SvEleitor", urlPatterns = {"/SvEleitor"})
-public class SvCadastraEleitor extends HttpServlet {
+@WebServlet(name = "SvHistorico", urlPatterns = {"/SvHistorico"})
+public class SvHistorico extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,26 +60,13 @@ public class SvCadastraEleitor extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF8");
-
+         request.setCharacterEncoding("UTF8");
+         
         response.setContentType("image/gif");
         List<FileItem> items = null;
         byte[] foto = null;
         try {
             items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-            for (FileItem item : items) {
-                if (!item.isFormField()) {
-                    InputStream imageInput = item.getInputStream();
-                    Image image = ImageIO.read(imageInput);
-                    BufferedImage thumb = Imagem.redimensionar(image, 400, 500);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    ImageIO.write(thumb, "JPG", baos);
-                    baos.flush();
-                    foto = baos.toByteArray();
-                    baos.close();
-                }
-            }
-            //dados do formulário e metodos para salvar 
             DateFormat formatter;
             Date date;
             formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -112,17 +99,16 @@ public class SvCadastraEleitor extends HttpServlet {
             DaoFoto daoFoto = new DaoFoto();
             int idretorno = daoEleitor.Eleitor_Salvar(el);
             daoFoto.inserirImagem(foto, idretorno);
-            response.sendRedirect("cadastro_eleitor.jsp?msg='Salvo com sucesso!'");
-            
+            response.sendRedirect("cadastro_eleitor.jsp?msg='Salvo com sucesso!'");   
         } catch (FileUploadException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+
 
     }
 
