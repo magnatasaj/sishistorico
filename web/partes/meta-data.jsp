@@ -17,6 +17,7 @@ response.setHeader("Expires", "0"); // Proxies.
  
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <!-- Ionicons -->
     <link href="css/demo.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="plugins/css/ionicons.min.css">

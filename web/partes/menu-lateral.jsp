@@ -53,7 +53,7 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="selecioanr_usuario.jsp"><i class="fa fa-angle-right"></i>Cadastrar histórico</a></li>
+                    <li><a href="usuario_selecionar.jsp"><i class="fa fa-angle-right"></i>Cadastrar histórico</a></li>
                     <li><a href="buscar-historico.jsp"><i class="fa fa-angle-right"></i>Buscar hisórico</a></li>
 
                 </ul>
