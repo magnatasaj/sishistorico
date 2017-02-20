@@ -35,7 +35,6 @@
 <tbody>
     <% String tipos = "1,2,3";
         List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
-                DaoTipo daoTipo = new DaoTipo();
 
         for (Eleitor d : el) {
 
@@ -58,7 +57,7 @@
         
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
-        <td><a id="ed" onclick="setfoto()">Editar</a>-
+        <td><a id="ed">Editar</a>-
             <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>

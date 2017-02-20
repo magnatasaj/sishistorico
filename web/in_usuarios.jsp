@@ -1,9 +1,24 @@
 
+<%@page import="com.sishistorico.funcao.Data"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@page import="java.util.List"%>
 <%@page import="com.sishistorico.objetos.Eleitor"%>
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
+<% String tipos = null;
+    if (request.getParameter("ids") != null) {
+        try {
+           tipos = request.getParameter("ids");
+
+        } catch (NumberFormatException ex) {
+            out.print("ids inválido");
+            return;
+
+        }
+    }
+    
+    
+    %>
 
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
@@ -26,9 +41,10 @@
     </tr>
 </tfoot>
 <tbody>
-    <% String tipos = "1,2,3";
+    <% 
+        DaoEleitor daoEleitor = new DaoEleitor();
         List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
-        
+        DaoTipo daoTipo = new DaoTipo();
         for (Eleitor d : el) {
             
 
@@ -38,7 +54,7 @@
        <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
         <td><% out.print(d.getNome()); %>
         <td><% out.print(d.getObs()); %></td>
-        <td><% out.print(d.getData_nascimento()); %></td>
+        <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
         <td><a id="ed" onclick="setfoto()">Editar</a>-
             <a on>excluir</a>-

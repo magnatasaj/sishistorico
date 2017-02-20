@@ -2,29 +2,30 @@
 <%@page import="java.util.Properties"%>
 <%@page import="com.sishistorico.dao.Propriedade"%>
 <%@page import="com.sishistorico.objetos.User"%>
+<% DaoTipo daoTipo = new DaoTipo();%>
 
 <aside class="main-sidebar" >
     <!-- sidebar: style can be found in sidebar.less -->
     <section id="menu" style="margin-top: 15px" class="sidebar affix">
-    
+
         <!-- Sidebar user panel -->
         <div class="user-panel">
-        <div class="pull-left image" style="min-height: 40px">
-         <!-- <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image"> -->
-        </div>
+            <div class="pull-left image" style="min-height: 40px">
+             <!-- <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image"> -->
+            </div>
             <div class="pull-left info" style="color: #FFF">
-                 <p>APP: <%out.print(Propriedade.getNome()); %></p>
+                <p>APP: <%out.print(Propriedade.getNome()); %></p>
 
                 <p>Olá, <% User al = new User();
-            al = (User)session.getAttribute("nome");
-    out.print(al.getNome()); %></p>
+                    al = (User) session.getAttribute("nome");
+                    out.print(al.getNome()); %></p>
             </div>
-           
+
         </div>
-        
-          <input type="text" id="tbusca" name="q" class="form-control" placeholder="Buscar...">
-              
-        
+
+        <input type="text" id="tbusca" name="q" class="form-control" placeholder="Buscar...">
+
+
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul id="treeview-menu" class="sidebar-menu">
             <li class="header">MENU DE NAVEGAÇÃO</li>
@@ -55,7 +56,7 @@
 
                 </ul>
             </li>
-           <li class="active treeview">
+            <li class="active treeview">
                 <a style="border-left-color: #FF7E00" href="#">
                     <i class="fa  fa-area-chart" style="color: #FF7E00"></i>
                     <span>Relatórios</span>
@@ -64,14 +65,20 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Lideres</a></li>
-                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Familiar</a></li>
-                    <li><a href="receita-relatorio.jsp"><i class="fa fa-angle-right"></i>Simples</a></li>
+                    <%
+                        for (TipoEleitor t : daoTipo.Lista_tipos()) {
+                    %>
+                    <li><a href="tipo_usuarios.jsp?ids=<% out.print(t.getId());%>"><i class="fa fa-angle-right"></i><% out.print(t.getNome());%></a></li>
+                    
+                        <%
+                            }
+                        %>
+
                     <li><a href="aniversariante.jsp"><i class="fa fa-angle-right"></i>Aniversariantes do mês</a></li>
                 </ul>
             </li>
-                      
-   <li class="active treeview">
+
+            <li class="active treeview">
                 <a style="border-left-color: #FFf" href="#">
                     <i class="fa  fa-sign-out" style="color: #FFf"></i>
                     <span>Configurações</span>
@@ -80,7 +87,7 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
-                    <li><a href="/<%out.print(Propriedade.getApp()); %>/SvSair" ><i class="glyphicon glyphicon-lock"></i>  Sair</a></li>
+                    <li><a href="/<%out.print(Propriedade.getApp());%>/SvSair" ><i class="glyphicon glyphicon-lock"></i>  Sair</a></li>
 
 
 

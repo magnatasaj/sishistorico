@@ -68,11 +68,10 @@
      <script src="js/canvas-to-blob.min.js" type="text/javascript"></script>
 
     <script src="js/fileinput.js" type="text/javascript"></script>
-    <script src="js/fileinput_locale_fr.js" type="text/javascript"></script>
-    <script src="js/fileinput_locale_es.js" type="text/javascript"></script>
     <script src="themes/explorer/theme.js" type="text/javascript"></script>
  <!-- select list mais bonito -->
  <script src="js/bootstrap-select.min.js" type="text/javascript"></script>
+ <script src="js/maskedinput.js" type="text/javascript"></script>
  <script type="text/javascript">
 
 	$("#tbusca").keyup(function(){

@@ -21,13 +21,13 @@
     <!-- #Meta-data ------------------------------------------------------------------------------------------------->
     <body class="hold-transition skin-blue sidebar-mini">
         <div class="pull-right-container fixed" style=" z-index: 500; margin-left: 70%; margin-top: 2%; max-width: 30%">
-                            <div id="alert" class="alert alert-success fade">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                <strong>Sucesso!</strong>
-                                <div id="msg">
-                                </div>    
-                            </div>
-                        </div> 
+            <div id="alert" class="alert alert-success fade">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>Sucesso!</strong>
+                <div id="msg">
+                </div>    
+            </div>
+        </div> 
         <div class="wrapper">
             <!-- Menu-Topo -->   
             <%@include file="partes/menu-topo.jsp" %>    
@@ -59,7 +59,7 @@
                                 <div class="col-md-6"> 
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
-                                            <div class="input-group-addon text-bold font-light">
+                                            <div class="input-group-addon text-bold">
                                                 NOME COMPLETO:
                                             </div>
                                             <input id="nome" name="nome" placeholder="" class="form-control small" required="" type="text">
@@ -72,7 +72,7 @@
                                                 NASCIMENTO
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text"  class="form-control pull-right" name="nascimento" id="nascimento">
+                                            <input type="text"  class="form-control pull-right" name="nascimento" required="" id="nascimento">
 
                                         </div>
                                     </div>
@@ -81,7 +81,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CPF:
                                             </div>
-                                            <input id="cpf" title="CPF" placeholder="000.000.000-00" name="cpf" type="text" class="form-control input-md" required=""  maxlength="14">
+                                            <input id="cpf" title="CPF" placeholder="000.000.000-00" data-mask="000.000.000-00" data-mask-selectonfocus="true" name="cpf" type="text" class="form-control input-md"  maxlength="14">
 
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                             <div class="input-group-addon text-bold">
                                                 RG:
                                             </div>
-                                            <input id="rg" title="rg" placeholder="000.000.000-00" name="rg" type="text" class="form-control input-md" required="" maxlength="14">
+                                            <input id="rg" title="rg" placeholder="00.000.000-0" data-mask="00.000.000-0" data-mask-selectonfocus="true" name="rg" type="text" class="form-control input-md" maxlength="14">
 
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
                                             <div class="input-group-addon text-bold">
                                                 SUS:
                                             </div>
-                                            <input id="sus" title="sus" placeholder="000.000.000-00" name="sus" type="text" class="form-control input-md" required="" maxlength="14">
+                                            <input id="sus" title="sus" placeholder="000 0000 0000 0000" data-mask="000 0000 0000 0000" data-mask-selectonfocus="true" name="sus" type="text" class="form-control input-md" maxlength="15">
 
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                             <div class="input-group-addon text-bold">
                                                 E-MAIL:
                                             </div>
-                                            <input id="email" name="email" class="form-control input-md" required="" placeholder="exemplo@email.com" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                            <input id="email" name="email" class="form-control input-md" placeholder="exemplo@email.com" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -129,10 +129,8 @@
                                             <div class="input-group-addon text-bold">
                                                 WHATS:
                                             </div>
-                                            <input  id="whats" title="whats" name="whats" type="text" class="form-control input-md" required="" oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')" onchange="try {
-                                                        setCustomValidity('')
-                                                    } catch (e) {
-                                                    }"  placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
+                                            <input  id="whats" title="whats" name="whats" type="text" class="form-control input-md"  oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')"
+                                                         placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
 
 
                                         </div>
@@ -151,7 +149,7 @@
                                             <div class="input-group-addon text-bold">
                                                 REFERENCIA PESSOAL:
                                             </div>
-                                            <input id="referencia" name="referencia" placeholder="" class="form-control pull-right" required="" type="text">
+                                            <input id="referencia" name="referencia" placeholder="" class="form-control pull-right"  type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +168,7 @@
                                                             </div>
                                                         </div></div>
                                                     <div tabindex="200" class="btn btn-primary btn-file">
-                                                        <input  id="foto" name="foto" class="file" type="file" multiple="" data-min-file-count="1"></div>
+                                                        <input  id="foto" name="foto" class="file" type="file" multiple="" ></div>
                                                 </div></div>
                                         </div></div>
 
@@ -225,7 +223,7 @@
                                             </div>
                                             <select class="selectpicker" data-live-search="true" name="localidade">
                                                 <option value="1">Urbana</option>
-                                                <option value="2">Rual</option>
+                                                <option value="2">Rural</option>
 
                                             </select>
                                             <div class="help-block with-errors"></div>
@@ -264,7 +262,7 @@
                                                 <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
                                                 <%
                                                     }
-                                                %>
+                                                    %>
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
@@ -291,10 +289,13 @@
                                 <i class="fa fa-times"></i></button>
                         </div>
                     </div>
-        <%@include file="/partes/javascript.jsp" %> 
+                    <%@include file="/partes/javascript.jsp" %> 
 
                     <div class="box-body">
-                       <%@include file="in_usuarios.jsp"%>    
+                        <jsp:include page="in_usuarios.jsp">
+                            <jsp:param name="ids" value="1,2,3" />
+
+                        </jsp:include>    
                     </div>
                 </div>                               
             </div>
@@ -312,12 +313,12 @@
 </html>
 
 <script>
- $(document).ready(function () {
+    $(document).ready(function () {
         var url = location.href;
         if (url.indexOf("msgok") == -1) {
 
         } else {
-            document.getElementById("msg").innerHTML = "Salvo com sucesso!"; 
+            document.getElementById("msg").innerHTML = "Salvo com sucesso!";
             $("#alert").delay(2000).addClass("in").fadeOut(4000);
 
         }
@@ -335,18 +336,18 @@
         overwriteInitial: false,
         initialPreviewAsData: true,
         initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
-    initialPreviewFileType: 'image' // image is the default and can be overridden in config below
+        initialPreviewFileType: 'image' // image is the default and can be overridden in config below
 
 
     });
-    
-     $('#nascimento').datepicker({
-                autoclose: true,
-                format: 'dd/mm/yyyy',
-                language: 'pt-BR',
-                defaultDate: new Date()
 
-            });
-            $('#ddata').datepicker("update", new Date());
-    
+    $('#nascimento').datepicker({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR',
+        defaultDate: new Date()
+
+    });
+    $('#ddata').datepicker("update", new Date());
+
 </script>
