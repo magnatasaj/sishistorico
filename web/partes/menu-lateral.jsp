@@ -1,4 +1,6 @@
 
+<%@page import="com.sishistorico.objetos.TipoEleitor"%>
+<%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@page import="java.util.Properties"%>
 <%@page import="com.sishistorico.dao.Propriedade"%>
 <%@page import="com.sishistorico.objetos.User"%>

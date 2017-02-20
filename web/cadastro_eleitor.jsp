@@ -11,7 +11,6 @@
 <%@page import="com.sishistorico.objetos.TipoEleitor"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!-- meta-data -->
-<% DaoTipo daoTipo = new DaoTipo();%>
 <% DaoEleitor daoEleitor = new DaoEleitor();%>
 
 

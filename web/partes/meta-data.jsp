@@ -62,8 +62,8 @@ response.setHeader("Expires", "0"); // Proxies.
 }
 
 #status {
-  width: 250px;
-  height: 107px;
+  width: 218px;
+  height: 185px;
   position: absolute;
   left: 50%;
   /* centers the loading animation horizontally one the screen */
