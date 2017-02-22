@@ -102,7 +102,7 @@
                     text: 'Imprimir',
                     footer: true}
             ]
-        })
+        });
 
 
   function adddata(v) {

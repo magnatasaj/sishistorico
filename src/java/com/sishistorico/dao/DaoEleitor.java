@@ -92,6 +92,28 @@ public class DaoEleitor {
         return l;
 
     }
+    
+    public List<Eleitor> Lista_Eleitor_Por_Dependencia(String ids) throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT * FROM `his_eleitor` WHERE `pertence` ="+ids+"";
+        ps = conexao.prepareStatement(sql);
+        //ps.setString(1, "1,2");
+        rs = ps.executeQuery();
+        List<Eleitor> l = new ArrayList();
+         while (rs.next()) {
+             Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt("id"));
+             eleitor.setNome(rs.getString("nome"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
+             l.add(eleitor);
+             
+         }
+        
+        return l;
+
+    } 
      
     public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
 

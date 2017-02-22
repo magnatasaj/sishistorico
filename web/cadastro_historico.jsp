@@ -186,11 +186,32 @@
                 <%@include file="/partes/javascript.jsp" %> 
 
                 <div class="box-body">
-                    <% int id = el.getId();%>
+                    <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Hisóricos</a></li>
+              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="true">Dependentes</a></li>
+              <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                  <% int id = el.getId();%>
                     <jsp:include page="in_historico.jsp" >
                         <jsp:param name="id" value="<%=id%>" />
 
                     </jsp:include>
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane active " id="tab_2">
+                 <jsp:include page="in_usuarios_dependecias.jsp" >
+                        <jsp:param name="id" value="<%=id%>" />
+
+                    </jsp:include>
+              </div>
+              
+            </div>
+            <!-- /.tab-content -->
+          </div>
+                 
                 </div>
             </div>                               
         </div>
