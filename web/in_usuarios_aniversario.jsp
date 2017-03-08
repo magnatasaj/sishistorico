@@ -14,7 +14,7 @@
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
 <h1>Reltório de aniversariantes</h1>
-<table id="tbniveis" cellspacing="0" width="99%" class="table table-bordered table-hover dataTable" role="grid" >
+<table id="tbniveis" cellspacing="0" class="table table-bordered table-hover dataTable"  >
 
 
     <thead>
@@ -27,11 +27,6 @@
     <th class="sorting">Ação</th>
 
 </thead>
-<tfoot>
-    <tr>
-
-    </tr>
-</tfoot>
 <tbody>
     <% String tipos = "1,2,3";
         List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
@@ -42,8 +37,7 @@
     %>  
     <tr>
         <td><% out.print(d.getId()); %></td>
-        <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
-        <td><% out.print(d.getNome()); %>
+        <td><% out.print(d.getNome()); %></td>
         <td><% out.print(CaucularDias.calculaIdade(d.getData_nascimento())+1); %> anos</td>
 
         <td><% 
