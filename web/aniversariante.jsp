@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 25/10/2016, 15:08:38
-    Author     : Lamara
---%>
-
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <%@page import="com.sishistorico.dao.DaoTipoHistorico"%>
 <%@page import="com.sishistorico.objetos.TipoHistorico"%>
