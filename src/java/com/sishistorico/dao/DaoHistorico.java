@@ -83,6 +83,29 @@ public class DaoHistorico {
 
     }
      
+    public List<Historico> Lista_Historico_agendado() throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT * FROM `his_historico` WHERE `situacao` = 1 ORDER BY `his_historico`.`data_agendada` ASC";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
+        List<Historico> h = new ArrayList();
+         while (rs.next()) {
+             Historico hi = new Historico();
+             hi.setId(rs.getInt("id"));
+             hi.setId_eleitor(rs.getInt("id_eleitor"));
+             hi.setData_entrada(rs.getDate("data_entrada"));
+             hi.setData_agendada(rs.getDate("data_agendada"));
+             hi.setSituacao(rs.getInt("situacao"));
+             hi.setSolicitacao(rs.getString("solicitacao"));
+             hi.setTipo(rs.getInt("tipo"));
+             h.add(hi);
+             
+         }
+        
+        return h;
+
+    } 
+     
     public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM `his_eleitor` WHERE `id` = ?";

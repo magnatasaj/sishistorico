@@ -73,7 +73,7 @@ public class DaoEleitor {
     
      public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+")";
+        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+") AND MONTH(`nascimento`) = MONTH(NOW())";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
         rs = ps.executeQuery();

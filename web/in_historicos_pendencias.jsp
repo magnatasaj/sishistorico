@@ -1,4 +1,7 @@
 
+<%@page import="com.sishistorico.dao.DaoTipoHistorico"%>
+<%@page import="com.sishistorico.objetos.Historico"%>
+<%@page import="com.sishistorico.dao.DaoHistorico"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@page import="com.sishistorico.funcao.Data"%>
 <%@page import="java.text.DateFormat"%>
@@ -8,37 +11,40 @@
 <%@page import="com.sishistorico.objetos.Eleitor"%>
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
-<%DaoEleitor daoEleitor = new DaoEleitor(); %>
-<% Date data = new Date(System.currentTimeMillis());
-%>
+<%DaoHistorico daoHistorico = new DaoHistorico(); %>
+<%DaoTipoHistorico daoTipoHistorico = new DaoTipoHistorico(); %>
+
+
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
-<table id="tbniveis" cellspacing="0" class="table table-bordered table-hover dataTable"  >
+
+<table id="tbniveis1" cellspacing="0" class="table table-bordered table-hover dataTable"  >
+
+
     <thead>
     <th class="sorting">id</th>
-    <th class="sorting">Nome</th>
-    <th class="sorting">Vai Fazer</th>
-    <th class="sorting">Falta/Dias</th>
-    <th class="sorting">Data/Nascimento</th>
+    <th class="sorting">solicitação</th>
+    <th class="sorting">Falta</th>
+    <th class="sorting">Data Agendada</th>
+    <th class="sorting">Data Entrada</th>
     <th class="sorting">Tipo</th>
     <th class="sorting">Ação</th>
 
 </thead>
 <tbody>
-    <% String tipos = "1,2,3";
-        List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
+    <%
+        List<Historico> h = daoHistorico.Lista_Historico_agendado();
 
-        for (Eleitor d : el) {
+        for (Historico d : h) {
 
 
     %>  
     <tr>
         <td><% out.print(d.getId()); %></td>
-        <td><% out.print(d.getNome()); %></td>
-        <td><% out.print(CaucularDias.calculaIdade(d.getData_nascimento())+1); %> anos</td>
-
+        <td><% out.print(d.getSolicitacao()); %></td>
         <td><% 
-            long falta = CaucularDias.calcular(d.getData_nascimento(), data);
+            
+            long falta = CaucularDias.calcular(d.getData_agendada(), data);
             if(falta == 0){
             out.print("É hoje");
             }else{
@@ -46,8 +52,10 @@
             }%> 
             </td>
         
-        <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
-        <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
+            <td><% out.print(Data.MudarFormatoDeData(d.getData_agendada())); %></td>
+                        <td><% out.print(Data.MudarFormatoDeData(d.getData_entrada())); %></td>
+
+                        <td><% out.print(daoTipoHistorico.Obj_tipos_Historico(d.getTipo()).getNome()); %></td>
         <td><a id="ed">Editar</a>-
             <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
@@ -70,7 +78,7 @@
     $(document).ready(function () {
 
 
-        $('#tbniveis').DataTable({
+        $('#tbniveis1').DataTable({
             "ordering": true,
             "scrollX": true,
             "order": [[3, 'desc']],

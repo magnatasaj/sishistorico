@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image" style="min-height: 40px">
-             <!-- <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image"> -->
+             <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
             </div>
             <div class="pull-left info" style="color: #FFF">
                 <p>APP: <%out.print(Propriedade.getNome()); %></p>
