@@ -9,8 +9,8 @@
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
 <%DaoEleitor daoEleitor = new DaoEleitor(); %>
-<% Date data = new Date(System.currentTimeMillis());
-%>
+<% DaoTipo daoTipo2 = new DaoTipo(); %>
+<% Date data2 = new Date(System.currentTimeMillis());%>
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
 <table id="tbniveis" cellspacing="0" class="table table-bordered table-hover dataTable"  >
@@ -26,9 +26,10 @@
 </thead>
 <tbody>
     <% String tipos = "1,2,3";
-        List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
+        List<Eleitor> el = daoEleitor.Lista_Eleitor_Aniversario_Mes(tipos);
 
         for (Eleitor d : el) {
+            if(d.getData_nascimento() != null){
 
 
     %>  
@@ -38,7 +39,7 @@
         <td><% out.print(CaucularDias.calculaIdade(d.getData_nascimento())+1); %> anos</td>
 
         <td><% 
-            long falta = CaucularDias.calcular(d.getData_nascimento(), data);
+            long falta = CaucularDias.calcular(d.getData_nascimento(), data2);
             if(falta == 0){
             out.print("É hoje");
             }else{
@@ -47,7 +48,7 @@
             </td>
         
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
-        <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
+        <td><% out.print(daoTipo2.Obj_tipos(d.getTipo()).getNome()); %></td>
         <td><a id="ed">Editar</a>-
             <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
@@ -56,7 +57,7 @@
     </tr>
 
 
-    <% };%>
+    <% }};%>
 
 </tbody>
 </table>

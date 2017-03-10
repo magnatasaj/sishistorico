@@ -78,12 +78,12 @@ function ocultar(){
 </script> 
    
     <header>
-        <div class="header-content">
-            <div class="header-content-inner">
+        <div style="height: 600px" class="header-content">
+            <div style="height: 100%" class="header-content-inner">
                 <form class="form-horizontal" action="javascript:optionCheck(document.getElementById('email').value,document.getElementById('senha').value)" method="post" >
 <fieldset>
 
-
+    <div style="margin: 10px" class="row">
     <h2 style="text-align: center; color: #FFF">Bem Vindo ao Sistema</h2>
      <h3 style="text-align: center; color: #FFF">APP: <%out.print(Propriedade.getNome()); %></h3>
      <h3 style="text-align: center; color: #FFF">
@@ -91,13 +91,13 @@ function ocultar(){
      </h3>
 <p></p>
 <div class="form-group">
-    <div class="alert-danger" id="resultado" name="resultado" style="display: none;"></div>
-    <div class="alert-success" id="resultado1" name="resultado1" style="display: none;"></div>
-
+    <div class="col-md-12">
+    <div  class="alert-danger form-control input-md" id="resultado" name="resultado" style="display: none; text-align: center;"></div>
+    <div class="alert-success form-control input-md" id="resultado1" name="resultado1" style="display: none; text-align: center;"></div>
+    </div>
 </div>
 <p></p>
 
-<!-- Text input-->
 <div class="form-group">
   <label class="col-md-4 control-label" for="textinput"></label>  
   <div class="col-md-4">
@@ -119,13 +119,15 @@ function ocultar(){
 <div class="form-group">
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton"  class="btn btn-success">Entrar</button>
+   <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Entrar</button>
   </div>
+  
 </div>
 
 </fieldset>
 </form>
                </div>
+        </div>
         </div>
     </header>
  

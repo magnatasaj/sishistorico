@@ -56,6 +56,7 @@
                 <div class="box-body">
                     <jsp:include page="in_usuarios.jsp">
                             <jsp:param name="ids" value="1,2,3" />
+                            <jsp:param name="busca" value="" />
 
                         </jsp:include>   
                     

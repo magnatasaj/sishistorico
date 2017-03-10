@@ -2,7 +2,6 @@
 <%@page import="com.sishistorico.dao.DaoTipoHistorico"%>
 <%@page import="com.sishistorico.objetos.Historico"%>
 <%@page import="com.sishistorico.dao.DaoHistorico"%>
-<%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@page import="com.sishistorico.funcao.Data"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
@@ -13,7 +12,7 @@
 <% request.setCharacterEncoding("UTF-8");    %>
 <%DaoHistorico daoHistorico = new DaoHistorico(); %>
 <%DaoTipoHistorico daoTipoHistorico = new DaoTipoHistorico(); %>
-
+<% Date data = new Date(System.currentTimeMillis());%>
 
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
@@ -36,8 +35,7 @@
         List<Historico> h = daoHistorico.Lista_Historico_agendado();
 
         for (Historico d : h) {
-
-
+            if(d.getData_agendada() != null){
     %>  
     <tr>
         <td><% out.print(d.getId()); %></td>
@@ -64,7 +62,7 @@
     </tr>
 
 
-    <% };%>
+    <% }};%>
 
 </tbody>
 </table>

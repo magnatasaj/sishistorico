@@ -6,9 +6,10 @@
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
 <% String tipos = null;
+    String busca = null;
     if (request.getParameter("ids") != null) {
         try {
-           tipos = request.getParameter("ids");
+            tipos = request.getParameter("ids");
 
         } catch (NumberFormatException ex) {
             out.print("ids inválido");
@@ -16,13 +17,17 @@
 
         }
     }
-    
-    
-    %>
+    if (request.getParameter("busca") != null) {
+
+        busca = request.getParameter("busca");
+
+    }
+
+
+%>
 
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
-<h1> Últimos cadastros</h1>
 <table id="tbniveis" cellspacing="0" width="99%" class="table table-bordered table-hover dataTable" role="grid" >
 
 
@@ -41,17 +46,23 @@
     </tr>
 </tfoot>
 <tbody>
-    <% 
-        DaoEleitor daoEleitor = new DaoEleitor();
-        List<Eleitor> el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
+    <%        DaoEleitor daoEleitor = new DaoEleitor();
+        List<Eleitor> el = null;
+        System.out.println("busca::::" + busca);
+
+        if (busca.equals("null")) {
+            el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
+        } else {
+            el = daoEleitor.Consultar_Eleitor(busca);
+        }
         DaoTipo daoTipo = new DaoTipo();
         for (Eleitor d : el) {
-            
+
 
     %>  
     <tr>
         <td><% out.print(d.getId()); %></td>
-       <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
+        <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
         <td><% out.print(d.getNome()); %>
         <td><% out.print(d.getObs()); %></td>
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
@@ -75,7 +86,7 @@
 <!-- #Fecha js-->
 <script>
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
 
         $('#tbniveis').DataTable({

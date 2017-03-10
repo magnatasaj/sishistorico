@@ -73,6 +73,28 @@ public class DaoEleitor {
     
      public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
 
+        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+")";
+        ps = conexao.prepareStatement(sql);
+        //ps.setString(1, "1,2");
+        rs = ps.executeQuery();
+        List<Eleitor> l = new ArrayList();
+         while (rs.next()) {
+             Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt("id"));
+             eleitor.setNome(rs.getString("nome"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
+             l.add(eleitor);
+             
+         }
+        
+        return l;
+
+    }
+     
+     public List<Eleitor> Lista_Eleitor_Aniversario_Mes(String ids) throws SQLException, ClassNotFoundException {
+
         String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+") AND MONTH(`nascimento`) = MONTH(NOW())";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
@@ -114,6 +136,28 @@ public class DaoEleitor {
         return l;
 
     } 
+    
+     public List<Eleitor> Consultar_Eleitor(String busca) throws SQLException, ClassNotFoundException {
+
+        String sql = "       SELECT * FROM `his_eleitor` WHERE `nome` LIKE '%"+busca+"%' OR `cpf` LIKE '%"+busca+"%' OR `rg` LIKE '%"+busca+"%' OR `email` LIKE '%"+busca+"%' OR `telefone` LIKE '%"+busca+"%' OR `whats` LIKE '%"+busca+"%' OR `sus` LIKE '%"+busca+"%' OR `obs` LIKE '%"+busca+"%' OR `nascimento` LIKE '%"+busca+"%'";
+        ps = conexao.prepareStatement(sql);
+        //ps.setString(1, "1,2");
+        rs = ps.executeQuery();
+        List<Eleitor> l = new ArrayList();
+         while (rs.next()) {
+             Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt("id"));
+             eleitor.setNome(rs.getString("nome"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
+             l.add(eleitor);
+             
+         }
+        
+        return l;
+
+    }
      
     public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
 

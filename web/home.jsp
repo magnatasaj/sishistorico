@@ -1,8 +1,4 @@
-<%-- 
-    Document   : index
-    Created on : 25/10/2016, 15:08:38
-    Author     : Lamara
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -27,7 +23,7 @@
      <%@include file="/partes/javascript.jsp" %> 
      <div class="box">
                     <div class="box-header">
-                        <h1>Reltório de aniversariantes</h1>
+                        <h2>Reltório de aniversariantes</h2>
 
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -43,7 +39,7 @@
      </div>
     <div class="box">
                     <div class="box-header">
-                        <h1>Reltório agendamentos</h1>
+                        <h2>Reltório agendamentos</h2>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                                 <i class="fa fa-minus"></i></button>

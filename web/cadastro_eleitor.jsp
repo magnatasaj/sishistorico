@@ -40,7 +40,7 @@
             <div class="content-wrapper">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Cadastro de usuários</h3>
+                        <h2 class="box-title">Cadastro de usuários</h2>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                                 <i class="fa fa-minus"></i></button>
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="box-body">
-                        <!-- Formulario inicio  -->
+                        <p>Obs: Campos com "*" são obrigatórios</p>
 
                         <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvEleitor">
                             <div class="row">
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                                NOME COMPLETO:
+                                                NOME COMPLETO:*
                                             </div>
                                             <input id="nome" name="nome" placeholder="" class="form-control small" required="" type="text">
                                         </div>
@@ -68,7 +68,7 @@
 
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                                NASCIMENTO
+                                                NASCIMENTO:*
                                                 <i class="fa fa-calendar"></i>
                                             </div>
                                             <input type="text"  class="form-control pull-right" name="nascimento" required="" id="nascimento">
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12 input-group">
                                             <div class="input-group-addon text-bold">
-                                                Nº CELULAR:
+                                                Nº CELULAR:*
                                             </div>
                                             <input  id="celular" title="Celular" name="celular" type="text" class="form-control input-md" required="" oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')" onchange="try {
                                                         setCustomValidity('')
@@ -291,8 +291,11 @@
                     <%@include file="/partes/javascript.jsp" %> 
 
                     <div class="box-body">
+                        <h2> Últimos cadastros</h2>
+
                         <jsp:include page="in_usuarios.jsp">
                             <jsp:param name="ids" value="1,2,3" />
+                            <jsp:param name="busca" value="" />
 
                         </jsp:include>    
                     </div>
