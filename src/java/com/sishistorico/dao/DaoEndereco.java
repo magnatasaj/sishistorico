@@ -45,5 +45,12 @@ public class DaoEndereco {
         ps.close();
     }
 
+     public void Endereco_Atualizar(Eleitor el) throws SQLException {
+
+        String sql = "UPDATE `his_endereco` SET `rua` = '" + el.getEnd().getRua() + "', `bairro` = '" + el.getEnd().getBairro() + "', `N` = '" + el.getEnd().getN() + "', `cidade` = '" + el.getEnd().getCidade() + "', `cep` = '" + el.getEnd().getCep() + "', `localidade` = '" + el.getEnd().getLocalidade() + "' WHERE `his_endereco`.`id_user` = " + el.getId() + "";
+        ps = conexao.prepareStatement(sql);
+        ps.execute();
+        ps.close();
+    }
     
 }

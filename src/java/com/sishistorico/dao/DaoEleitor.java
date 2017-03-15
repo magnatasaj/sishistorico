@@ -6,6 +6,7 @@
 package com.sishistorico.dao;
 
 import com.sishistorico.objetos.Eleitor;
+import com.sishistorico.objetos.Endereco;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -71,20 +72,64 @@ public class DaoEleitor {
 
     }
     
+    public int Eleitor_Editar(Eleitor el) throws SQLException, ClassNotFoundException {
+
+        String sql = "UPDATE `his_eleitor` SET `nome` = ?, `cpf` = ?, `rg` = ?, `email` = ?, `telefone` = ?, `whats` = ?, `tipo` = ?, `sus` = ?, `obs` = ?, `referencia` = ?, `pertence` = ?, `nascimento` = ? WHERE `his_eleitor`.`id` = ?;";
+        ps = conexao.prepareStatement(sql);
+        ps.setString(1, el.getNome());
+        ps.setString(2, el.getCpf());
+        ps.setString(3, el.getRg());
+        ps.setString(4, el.getEmail());
+        ps.setString(5, el.getTelefone());
+        ps.setString(6, el.getWhats());
+        ps.setInt(7, el.getTipo());
+        ps.setString(8, el.getSus());
+        ps.setString(9, el.getObs());
+        ps.setString(10, el.getReferencia_pessoal());
+        ps.setInt(11, el.getPertence());
+        ps.setDate(12, new java.sql.Date(el.getData_nascimento().getTime()));
+        ps.setInt(13, el.getId());
+        
+        ps.executeUpdate();
+         DaoEndereco end = new DaoEndereco();
+         end.Endereco_Atualizar(el); 
+        
+        return el.getId();
+
+    }
+    
      public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+")";
+        String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `tipo` in ("+ids+")";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
         rs = ps.executeQuery();
         List<Eleitor> l = new ArrayList();
          while (rs.next()) {
-             Eleitor eleitor = new Eleitor();
-             eleitor.setId(rs.getInt("id"));
+            Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt(9));
              eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
              eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
+             eleitor.setObs(rs.getString("obs"));
              eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
              l.add(eleitor);
              
          }
@@ -95,18 +140,36 @@ public class DaoEleitor {
      
      public List<Eleitor> Lista_Eleitor_Aniversario_Mes(String ids) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `tipo` in ("+ids+") AND MONTH(`nascimento`) = MONTH(NOW())";
+        String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `tipo` in ("+ids+") AND MONTH(`nascimento`) = MONTH(NOW())";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
         rs = ps.executeQuery();
         List<Eleitor> l = new ArrayList();
          while (rs.next()) {
-             Eleitor eleitor = new Eleitor();
-             eleitor.setId(rs.getInt("id"));
+            Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt(9));
              eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
              eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
+             eleitor.setObs(rs.getString("obs"));
              eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
              l.add(eleitor);
              
          }
@@ -117,18 +180,36 @@ public class DaoEleitor {
     
     public List<Eleitor> Lista_Eleitor_Por_Dependencia(String ids) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `pertence` ="+ids+"";
+        String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `pertence` ="+ids+"";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
         rs = ps.executeQuery();
         List<Eleitor> l = new ArrayList();
          while (rs.next()) {
              Eleitor eleitor = new Eleitor();
-             eleitor.setId(rs.getInt("id"));
+             eleitor.setId(rs.getInt(9));
              eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
              eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
+             eleitor.setObs(rs.getString("obs"));
              eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
              l.add(eleitor);
              
          }
@@ -139,18 +220,36 @@ public class DaoEleitor {
     
      public List<Eleitor> Consultar_Eleitor(String busca) throws SQLException, ClassNotFoundException {
 
-        String sql = "       SELECT * FROM `his_eleitor` WHERE `nome` LIKE '%"+busca+"%' OR `cpf` LIKE '%"+busca+"%' OR `rg` LIKE '%"+busca+"%' OR `email` LIKE '%"+busca+"%' OR `telefone` LIKE '%"+busca+"%' OR `whats` LIKE '%"+busca+"%' OR `sus` LIKE '%"+busca+"%' OR `obs` LIKE '%"+busca+"%' OR `nascimento` LIKE '%"+busca+"%'";
+        String sql = "       SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `nome` LIKE '%"+busca+"%' OR `cpf` LIKE '%"+busca+"%' OR `rg` LIKE '%"+busca+"%' OR `email` LIKE '%"+busca+"%' OR `telefone` LIKE '%"+busca+"%' OR `whats` LIKE '%"+busca+"%' OR `sus` LIKE '%"+busca+"%' OR `obs` LIKE '%"+busca+"%' OR `nascimento` LIKE '%"+busca+"%'";
         ps = conexao.prepareStatement(sql);
         //ps.setString(1, "1,2");
         rs = ps.executeQuery();
         List<Eleitor> l = new ArrayList();
          while (rs.next()) {
-             Eleitor eleitor = new Eleitor();
-             eleitor.setId(rs.getInt("id"));
+            Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt(9));
              eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
              eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
+             eleitor.setObs(rs.getString("obs"));
              eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
              l.add(eleitor);
              
          }
@@ -159,19 +258,78 @@ public class DaoEleitor {
 
     }
      
+     public List<Eleitor> Consultar_Eleitor_End(String busca) throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `rua` LIKE '%"+busca+"%' or `bairro` LIKE '%"+busca+"%' or `N` LIKE '%"+busca+"%' or `cidade` LIKE '%"+busca+"%' or `cep` LIKE '%"+busca+"%'";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
+        List<Eleitor> l = new ArrayList();
+         while (rs.next()) {
+             Eleitor eleitor = new Eleitor();
+             eleitor.setId(rs.getInt(9));
+             eleitor.setNome(rs.getString("nome"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
+             eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
+             eleitor.setObs(rs.getString("obs"));
+             eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
+             l.add(eleitor);
+             
+         }
+        
+        return l;
+
+    } 
+     
     public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `id` = ?";
+        String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE bb.`id` = ?";
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, id);
         rs = ps.executeQuery();
         Eleitor eleitor = new Eleitor();
          while (rs.next()) {
              
-             eleitor.setId(rs.getInt("id"));
+             eleitor.setId(rs.getInt(9));
              eleitor.setNome(rs.getString("nome"));
+             eleitor.setCpf(rs.getString("cpf"));
+             eleitor.setRg(rs.getString("rg"));
+             eleitor.setEmail(rs.getString("email"));
+             eleitor.setSus(rs.getString("sus"));
+             eleitor.setPertence(rs.getInt("pertence"));
+             eleitor.setTipo(rs.getInt("tipo"));
+             eleitor.setWhats(rs.getString("whats"));
+             eleitor.setTelefone(rs.getString("telefone"));
+             eleitor.setReferencia_pessoal(rs.getString("referencia"));
              eleitor.setObs(rs.getString("obs"));
              eleitor.setData_nascimento(rs.getDate("nascimento"));
+             //objeto endereço
+             Endereco endereco = new Endereco();
+             endereco.setBairro(rs.getString("bairro"));
+             endereco.setCep(rs.getString("cep"));
+             endereco.setCidade(rs.getString("cidade"));
+             endereco.setLocalidade(rs.getInt("localidade"));
+             endereco.setN(rs.getString("N"));
+             endereco.setId(rs.getInt(1));
+             endereco.setRua(rs.getString("rua"));
+             eleitor.setEnd(endereco);
+            
              
              
          }

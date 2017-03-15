@@ -13,7 +13,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image" style="min-height: 40px">
-             <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
+                <img src="/<%out.print(Propriedade.getApp()); %>/dist/img/<%out.print(Propriedade.getApp()); %>.png" class="img-thumbnail" alt="User Image">
             </div>
             <div class="pull-left info" style="color: #FFF">
                 <p>APP: <%out.print(Propriedade.getNome()); %></p>
@@ -33,14 +33,34 @@
             <li class="header">MENU DE NAVEGAÇÃO</li>
             <li class="active treeview " >
                 <a style="border-left-color: #f00" href="#">
+                    <i class="fa fa-arrow-circle-down" style="color: #f00"></i> <span>Home</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                
+                <ul id="treeview-menu" class="treeview-menu">
+                    
+                    <li><a href="home.jsp"><i class="fa fa-angle-right"></i>Home</a></li>
+                    <li><a href="home.jsp"><i class="fa fa-angle-right"></i>Gráficos</a></li>
+
+
+                </ul>
+            </li>
+            <li class="active treeview " >
+                <a style="border-left-color: #f00" href="#">
                     <i class="fa fa-arrow-circle-down" style="color: #f00"></i> <span>Usuários</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
+                
                 <ul id="treeview-menu" class="treeview-menu">
+                    
                     <li><a href="cadastro_eleitor.jsp"><i class="fa fa-angle-right"></i>Cadastro de usuário</a></li>
                     <li><a href="buscar-eleitor.jsp"><i class="fa fa-angle-right"></i>Buscar usuários</a></li>
+                    <li><a href="buscar-eleitor_endereco.jsp"><i class="fa fa-angle-right"></i>Buscar por Endereço</a></li>
+
 
                 </ul>
             </li>
@@ -53,8 +73,10 @@
                     </span>
                 </a>
                 <ul id="treeview-menu" class="treeview-menu">
+
                     <li><a href="usuario_selecionar.jsp"><i class="fa fa-angle-right"></i>Cadastrar histórico</a></li>
                     <li><a href="buscar-historico.jsp"><i class="fa fa-angle-right"></i>Buscar hisórico</a></li>
+
 
                 </ul>
             </li>
@@ -71,10 +93,10 @@
                         for (TipoEleitor t : daoTipo.Lista_tipos()) {
                     %>
                     <li><a href="tipo_usuarios.jsp?ids=<% out.print(t.getId());%>"><i class="fa fa-angle-right"></i><% out.print(t.getNome());%></a></li>
-                    
-                        <%
-                            }
-                        %>
+
+                    <%
+                        }
+                    %>
 
                     <li><a href="aniversariante.jsp"><i class="fa fa-angle-right"></i>Aniversariantes do mês</a></li>
                 </ul>

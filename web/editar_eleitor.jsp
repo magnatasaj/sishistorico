@@ -4,6 +4,9 @@
     Author     : Lamara
 --%>
 
+<%@page import="java.sql.Blob"%>
+<%@page import="com.sishistorico.dao.DaoFoto"%>
+<%@page import="com.sishistorico.funcao.Data"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="com.sishistorico.objetos.Eleitor"%>
@@ -11,7 +14,27 @@
 <%@page import="com.sishistorico.objetos.TipoEleitor"%>
 <%@page import="com.sishistorico.dao.DaoTipo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%><!-- meta-data -->
-<% DaoEleitor daoEleitor = new DaoEleitor();%>
+<% DaoEleitor daoEleitor = new DaoEleitor();
+   DaoFoto daoFoto = new DaoFoto();
+   
+    Eleitor el = new Eleitor();
+    Blob ff = null;
+    if (request.getParameter("id") != null) {
+        try {
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            el = daoEleitor.Obj_Eleitor(id);
+           ff = daoFoto.recuperaImagem(el.getId());
+           System.out.println("ff:::::::::::::::"+ff.length());
+           
+
+        } catch (NumberFormatException ex) {
+            out.print("id inválido");
+            return;
+
+        }
+    }
+%>
 
 
 <!DOCTYPE html>
@@ -40,7 +63,7 @@
             <div class="content-wrapper">
                 <div class="box">
                     <div class="box-header">
-                        <h2 class="box-title">Cadastro de usuários</h2>
+                        <h2 class="box-title">Editar usuários</h2>
                         <div class="box-tools pull-right">
                             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                                 <i class="fa fa-minus"></i></button>
@@ -52,7 +75,7 @@
                     <div class="box-body">
                         <p>Obs: Campos com "*" são obrigatórios</p>
 
-                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvCadastraEleitor">
+                        <form data-toggle="validator" enctype="multipart/form-data"  method="post" acceptcharset="UTF-8" action="SvEditarEleitor">
                             <div class="row">
                                 <!-- coluna um inicil  -->                            
                                 <div class="col-md-6"> 
@@ -61,7 +84,7 @@
                                             <div class="input-group-addon text-bold">
                                                 NOME COMPLETO:*
                                             </div>
-                                            <input id="nome" name="nome" placeholder="" class="form-control small" required="" type="text">
+                                            <input value="<% out.print(el.getNome()); %>" id="nome" name="nome" placeholder="" class="form-control small" required="" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -71,7 +94,7 @@
                                                 NASCIMENTO:*
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text"  class="form-control pull-right" name="nascimento" required="" id="nascimento">
+                                            <input value="<% out.print(Data.MudarFormatoDeData(el.getData_nascimento())); %>" type="text" v class="form-control pull-right" name="nascimento" required="" id="nascimento">
 
                                         </div>
                                     </div>
@@ -80,7 +103,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CPF:
                                             </div>
-                                            <input id="cpf" title="CPF" placeholder="000.000.000-00" data-mask="000.000.000-00" data-mask-selectonfocus="true" name="cpf" type="text" class="form-control input-md"  maxlength="14">
+                                            <input value="<% out.print(el.getCpf()); %>" id="cpf" title="CPF" placeholder="000.000.000-00" data-mask="000.000.000-00" data-mask-selectonfocus="true" name="cpf" type="text" class="form-control input-md"  maxlength="14">
 
                                         </div>
                                     </div>
@@ -89,7 +112,7 @@
                                             <div class="input-group-addon text-bold">
                                                 RG:
                                             </div>
-                                            <input id="rg" title="rg" placeholder="00.000.000-0" data-mask="00.000.000-0" data-mask-selectonfocus="true" name="rg" type="text" class="form-control input-md" maxlength="14">
+                                            <input value="<% out.print(el.getRg()); %>" id="rg" title="rg" placeholder="00.000.000-0" data-mask="00.000.000-0" data-mask-selectonfocus="true" name="rg" type="text" class="form-control input-md" maxlength="14">
 
                                         </div>
                                     </div>
@@ -98,7 +121,7 @@
                                             <div class="input-group-addon text-bold">
                                                 SUS:
                                             </div>
-                                            <input id="sus" title="sus" placeholder="000 0000 0000 0000" data-mask="000 0000 0000 0000" data-mask-selectonfocus="true" name="sus" type="text" class="form-control input-md" maxlength="15">
+                                            <input value="<% out.print(el.getSus()); %>" id="sus" title="sus" placeholder="000 0000 0000 0000" data-mask="000 0000 0000 0000" data-mask-selectonfocus="true" name="sus" type="text" class="form-control input-md" maxlength="15">
 
                                         </div>
                                     </div>
@@ -107,7 +130,7 @@
                                             <div class="input-group-addon text-bold">
                                                 E-MAIL:
                                             </div>
-                                            <input id="email" name="email" class="form-control input-md" placeholder="exemplo@email.com" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                            <input value="<% out.print(el.getEmail()); %>" id="email" name="email" class="form-control input-md" placeholder="exemplo@email.com" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -115,7 +138,7 @@
                                             <div class="input-group-addon text-bold">
                                                 Nº CELULAR:*
                                             </div>
-                                            <input  id="celular" title="Celular" name="celular" type="text" class="form-control input-md" required="" oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')" onchange="try {
+                                            <input value="<% out.print(el.getTelefone()); %>" id="celular" title="Celular" name="celular" type="text" class="form-control input-md" required="" oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')" onchange="try {
                                                         setCustomValidity('')
                                                     } catch (e) {
                                                     }"  placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
@@ -128,8 +151,8 @@
                                             <div class="input-group-addon text-bold">
                                                 WHATS:
                                             </div>
-                                            <input  id="whats" title="whats" name="whats" type="text" class="form-control input-md"  oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')"
-                                                         placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
+                                            <input value="<% out.print(el.getWhats()); %>" id="whats" title="whats" name="whats" type="text" class="form-control input-md"  oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')"
+                                                   placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
 
 
                                         </div>
@@ -139,8 +162,7 @@
                                             <div class="input-group-addon text-bold">
                                                 OBSERVAÇÃO:
                                             </div>
-                                            <textarea  style="min-height: 100%" id="obs" title="obs" name="obs" class="form-control input-md" wrap="100%">
-                                            </textarea>
+                                            <textarea  style="min-height: 100%" id="obs" title="obs" name="obs" class="form-control input-md" wrap="100%"><% out.print(el.getObs()); %></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <div class="form-group">
@@ -148,7 +170,7 @@
                                             <div class="input-group-addon text-bold">
                                                 REFERENCIA PESSOAL:
                                             </div>
-                                            <input id="referencia" name="referencia" placeholder="" class="form-control pull-right"  type="text">
+                                            <input value="<% out.print(el.getReferencia_pessoal()); %>" id="referencia" name="referencia" placeholder="" class="form-control pull-right"  type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -161,13 +183,20 @@
                                             <div class="input-group-addon text-bold">
                                                 FOTO:
                                             </div>
-                                            <div class="file-input file-input-new"><div class="file-preview">
+                                            <div id="comf" <% if(ff.length() == 0){out.print("style='display: none'");}else{out.print("style='width: 50%'");} %> class="alert alert-info alert-dismissible">
+                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                                <h4><i class="icon fa fa-info"></i>Foto</h4>
+                                                <img style="" heigth="80%" width="70%" src="SvImagem?id=<% out.print(el.getId());%>"
+                                                      </div>
+                                                      <p><a onclick="removerfoto()">Remover foto</a></p>
+                                            </div>
+                                                <div id="semf" <% if(ff.length() == 0){out.print(""); }%>  class="file-input file-input-new"><div class="file-preview">
                                                     <div class="kv-upload-progress hide"><div class="progress">
                                                             <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="50" >
                                                             </div>
                                                         </div></div>
                                                     <div tabindex="200" class="btn btn-primary btn-file">
-                                                        <input  id="foto" name="foto" class="file" type="file" multiple="" ></div>
+                                                        <input   id="foto" filename="SvImagem?id=<% out.print(el.getId());%>" name="foto" class="file" type="file" multiple="" ></div>
                                                 </div></div>
                                         </div></div>
 
@@ -176,7 +205,7 @@
                                             <div class="input-group-addon text-bold">
                                                 RUA:
                                             </div>
-                                            <input  id="rua" title="rua" name="rua" type="text" class="form-control input-md">
+                                            <input value="<% out.print(el.getEnd().getRua()); %>" id="rua" title="rua" name="rua" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
 
@@ -185,7 +214,7 @@
                                             <div class="input-group-addon text-bold">
                                                 BAIRRO:
                                             </div>
-                                            <input  id="bairro" title="Bairro" name="bairro" type="text" class="form-control input-md">
+                                            <input value="<% out.print(el.getEnd().getBairro()); %>" id="bairro" title="Bairro" name="bairro" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
 
@@ -194,7 +223,7 @@
                                             <div class="input-group-addon text-bold">
                                                 Nº:
                                             </div>
-                                            <input  id="n" title="Número" name="n" type="text" class="form-control input-md">
+                                            <input value="<% out.print(el.getEnd().getN()); %>" id="n" title="Número" name="n" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
 
@@ -203,7 +232,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CIDADE:
                                             </div>
-                                            <input  id="rua" title="cidade" name="cidade" type="text" class="form-control input-md">
+                                            <input value="<% out.print(el.getEnd().getCidade()); %>" id="rua" title="cidade" name="cidade" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
 
@@ -212,7 +241,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CEP:
                                             </div>
-                                            <input  id="cep" title="Cep" name="cep" type="text" class="form-control input-md">
+                                            <input value="<% out.print(el.getEnd().getCep()); %>" id="cep" title="Cep" name="cep" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <div class="form-group">
@@ -220,9 +249,13 @@
                                             <div class="input-group-addon text-bold">
                                                 LOCALIDADE:
                                             </div>
-                                            <select class="selectpicker" data-live-search="true" name="localidade">
-                                                <option value="1">Urbana</option>
-                                                <option value="2">Rural</option>
+                                            <select value="<% out.print(el.getEnd().getLocalidade()); %>" class="selectpicker" data-live-search="true" name="localidade">
+                                                <option value="1" <% if (el.getEnd().getLocalidade() == 1) {
+                                                        out.print("selected");
+                                                    } %>>Urbana</option>
+                                                <option value="2" <% if (el.getEnd().getLocalidade() == 2) {
+                                                        out.print("selected");
+                                                    } %>>Rural</option>
 
                                             </select>
                                             <div class="help-block with-errors"></div>
@@ -232,11 +265,13 @@
                                             <div class="input-group-addon text-bold">
                                                 TIPO:
                                             </div>
-                                            <select class="selectpicker" data-live-search="true" name="tipo">
+                                            <select value="<% out.print(el.getTipo()); %>" class="selectpicker" data-live-search="true" name="tipo">
                                                 <%
                                                     for (TipoEleitor t : daoTipo.Lista_tipos()) {
                                                 %>
-                                                <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
+                                                <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>" <% if (el.getTipo() == t.getId()) {
+                                                        out.print("selected");
+                                                    } %> ><% out.print(t.getNome());%></option>
                                                 <%
                                                     }
                                                 %>
@@ -249,7 +284,7 @@
                                             <div class="input-group-addon text-bold">
                                                 DEPÊNDENCIA:
                                             </div>
-                                            <select class="selectpicker"  data-live-search="true" name="depende">
+                                            <select value="<% out.print(el.getPertence()); %>" class="selectpicker"  data-live-search="true" name="depende">
                                                 <option id="0" value="0"></option>
 
                                                 <% String ids = "2,3";
@@ -258,18 +293,24 @@
                                                 %>
                                                 <%                                                    for (Eleitor t : daoEleitor.Lista_Eleitor_Por_Tipo(ids)) {
                                                 %>
-                                                <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
+                                                <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>" <% if (el.getPertence() == t.getId()) {
+                                                        out.print("selected");
+                                                    } %>><% out.print(t.getNome());%></option>
                                                 <%
                                                     }
-                                                    %>
+                                                %>
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
+                                    <input name="id" id="id" value="<% out.print(el.getId()); %>" hidden="true" >
+                                    <input name="id" id="f" value="<% out.print(el.getId());
+                                                                                                %>" hidden="true" >
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Salvar</button>
+                                    <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Alterar</button>
                                 </div>
                                 <div class="col-md-6">
                                     <button onclick="limpar2()" id="limpar" type="button" class="btn btn-block btn-primary btn-lg disabled">Limpar</button>
@@ -335,8 +376,7 @@
         maxImageHeight: 200,
         resizePreference: 'width',
         footer: false,
-        overwriteInitial: false,
-        initialPreviewAsData: true,
+        overwriteInitial: true,
         initialPreviewAsData: true, // identify if you are sending preview data only and not the raw markup
         initialPreviewFileType: 'image' // image is the default and can be overridden in config below
 

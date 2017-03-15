@@ -6,7 +6,9 @@
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
 <% request.setCharacterEncoding("UTF-8");    %>
 <% String tipos = null;
-    String busca = null;
+    String busca = "null";
+    String end = "null";
+
     if (request.getParameter("ids") != null) {
         try {
             tipos = request.getParameter("ids");
@@ -23,6 +25,12 @@
 
     }
 
+    if (request.getParameter("end") != null) {
+
+        end = request.getParameter("end");
+
+    }
+
 
 %>
 
@@ -34,6 +42,9 @@
     <thead>
     <th class="sorting">id</th>
     <th class="sorting">Nome</th>
+    <th class="sorting">Rua</th>
+    <th class="sorting">Bairro</th>
+    <th class="sorting">Cidade</th>
     <th class="sorting">Obs</th>
     <th class="sorting">Data/Na</th>
     <th class="sorting">Tipo</th>
@@ -48,12 +59,17 @@
 <tbody>
     <%        DaoEleitor daoEleitor = new DaoEleitor();
         List<Eleitor> el = null;
-        System.out.println("busca::::" + busca);
-
-        if (busca.equals("null")) {
+        if (busca.equals("null") & end.equals("null")) {
             el = daoEleitor.Lista_Eleitor_Por_Tipo(tipos);
-        } else {
+        }
+        if (!busca.equals("null")) {
             el = daoEleitor.Consultar_Eleitor(busca);
+
+        }
+
+        if (!end.equals("null")) {
+
+            el = daoEleitor.Consultar_Eleitor_End(end);
         }
         DaoTipo daoTipo = new DaoTipo();
         for (Eleitor d : el) {
@@ -63,11 +79,14 @@
     <tr>
         <td><% out.print(d.getId()); %></td>
         <!-- <td> // out.print(Data.MudarFormatoDeData(d.getData())); </td> -->
-        <td><% out.print(d.getNome()); %>
+        <td><% out.print(d.getNome()); %></td>
+        <td><% out.print(d.getEnd().getRua()); %></td>
+        <td><% out.print(d.getEnd().getBairro()); %></td>
+        <td><% out.print(d.getEnd().getCidade()); %></td>
         <td><% out.print(d.getObs()); %></td>
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
-        <td><a id="ed" onclick="setfoto()">Editar</a>-
+        <td><a href="editar_eleitor.jsp?id=<%out.print(d.getId());%>">Editar</a>-
             <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>

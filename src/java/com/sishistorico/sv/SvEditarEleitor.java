@@ -37,8 +37,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author lubuntu
  */
-@WebServlet(name = "SvCadastraEleitor", urlPatterns = {"/SSvCadastraEleitor"})
-public class SvCadastraEleitor extends HttpServlet {
+@WebServlet(name = "SvEditarEleitor", urlPatterns = {"/SvEditarEleitor"})
+public class SvEditarEleitor extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -56,10 +56,13 @@ public class SvCadastraEleitor extends HttpServlet {
 
         List<FileItem> items = null;
         byte[] foto = null;
+        long vazio = 0;
         try {
             items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             for (FileItem item : items) {
                 if (!item.isFormField()) {
+                    vazio = item.getSize();
+                    System.out.println("tamanho/:::::::::::::::::::: "+ vazio);
                     InputStream imageInput = item.getInputStream();
                     Image image = ImageIO.read(imageInput);
                     BufferedImage thumb = Imagem.redimensionar(image, 400, 500);
@@ -78,6 +81,7 @@ public class SvCadastraEleitor extends HttpServlet {
             // fim do tratamento        
             Eleitor el = new Eleitor();
             Endereco end = new Endereco();
+            el.setId(Integer.parseInt(items.get(19).getString("UTF-8").trim()));
             el.setNome(items.get(0).getString("UTF-8").trim());
             el.setData_nascimento(date);
             el.setCpf(items.get(2).getString("UTF-8").replaceAll("\\.|\\-|\\ ", "").trim());
@@ -101,18 +105,20 @@ public class SvCadastraEleitor extends HttpServlet {
             el.setEnd(end);
             DaoEleitor daoEleitor = new DaoEleitor();
             DaoFoto daoFoto = new DaoFoto();
-            int idretorno = daoEleitor.Eleitor_Salvar(el);
-            daoFoto.inserirImagem(foto, idretorno);
-            response.sendRedirect("cadastro_eleitor.jsp?msgok");
+            int idretorno = daoEleitor.Eleitor_Editar(el);
+            if(vazio > 1){
+            daoFoto.atualizarImagem(foto, idretorno);
+            }
+            response.sendRedirect("editar_eleitor.jsp?id="+el.getId()+"&msgok");
 
         } catch (FileUploadException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvEditarEleitor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvEditarEleitor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvEditarEleitor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(SvCadastraEleitor.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SvEditarEleitor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

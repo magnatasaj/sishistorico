@@ -48,6 +48,22 @@ public class DaoFoto {
         
         ps.execute();
     }
+    
+    public void atualizarImagem(byte[] fileitem, int iduser) throws Exception {
+        String SQL = "UPDATE `imagem` SET `imagem` = ?  WHERE `imagem`.`id_user` = ?;";
+        //String ex = FilenameUtils.getExtension(fileitem.getName());
+
+        
+
+        //System.out.println("Extenção@@@@@@@@@2" + ex);
+        ps = conexao.prepareStatement(SQL);
+        System.out.println("bay"+ fileitem.length);
+        ps.setBytes(1, fileitem);
+        //ps.setBinaryStream(1, fileitem.getInputStream(), (int) fileitem.getSize());
+        ps.setInt(2, iduser);
+        
+        ps.execute();
+    }
 
     public Blob recuperaImagem(int iduser) throws Exception {
         String SQL = "SELECT * FROM `imagem` WHERE `id_user` = ?";

@@ -49,7 +49,7 @@
         
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo2.Obj_tipos(d.getTipo()).getNome()); %></td>
-        <td><a id="ed">Editar</a>-
+        <td><a href="editar_eleitor.jsp?id=<%out.print(d.getId());%>">Editar</a>-
             <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>
