@@ -59,6 +59,26 @@ public class DaoHistorico {
 
     }
     
+    public void historico_editar(Historico hi) throws SQLException, ClassNotFoundException {
+
+        String sql = "UPDATE `his_historico` SET `data_entrada` = ?, `data_agendada` = ?, `tipo` = ?, `solicitacao` = ? WHERE `his_historico`.`id` = ?;";
+        ps = conexao.prepareStatement(sql);
+        ps.setDate(1, new java.sql.Date(hi.getData_entrada().getTime()));
+        if(hi.getData_agendada() != null){
+        ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
+        }else{
+        ps.setNull(2,Types.DATE);
+        }
+        ps.setInt(3, hi.getTipo());
+        ps.setString(4, hi.getSolicitacao());
+        ps.setInt(5, hi.getId());
+        
+
+        ps.execute();
+        
+
+    }
+    
      public List<Historico> Lista_Historico_Eleitor(int id) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM `his_historico` WHERE `id_eleitor` = ?";
@@ -106,24 +126,28 @@ public class DaoHistorico {
 
     } 
      
-    public Eleitor Obj_Eleitor(int id) throws SQLException, ClassNotFoundException {
+    public Historico Obj_Historico(int id) throws SQLException, ClassNotFoundException {
 
-        String sql = "SELECT * FROM `his_eleitor` WHERE `id` = ?";
+       
+        String sql = "SELECT * FROM `his_historico` WHERE id = ?";
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, id);
         rs = ps.executeQuery();
-        Eleitor eleitor = new Eleitor();
+          Historico hi = new Historico();
          while (rs.next()) {
-             
-             eleitor.setId(rs.getInt("id"));
-             eleitor.setNome(rs.getString("nome"));
-             eleitor.setObs(rs.getString("obs"));
-             eleitor.setData_nascimento(rs.getDate("nascimento"));
+           
+             hi.setId(rs.getInt("id"));
+             hi.setId_eleitor(rs.getInt("id_eleitor"));
+             hi.setData_entrada(rs.getDate("data_entrada"));
+             hi.setData_agendada(rs.getDate("data_agendada"));
+             hi.setSituacao(rs.getInt("situacao"));
+             hi.setSolicitacao(rs.getString("solicitacao"));
+             hi.setTipo(rs.getInt("tipo"));
              
              
          }
         
-        return eleitor;
+        return hi;
 
     } 
 

@@ -303,8 +303,7 @@
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <input name="id" id="id" value="<% out.print(el.getId()); %>" hidden="true" >
-                                    <input name="id" id="f" value="<% out.print(el.getId());
-                                                                                                %>" hidden="true" >
+                                    <input name="id" id="f" value="<% out.print(el.getId());%>" hidden="true" >
 
                                 </div>
                             </div>
