@@ -240,7 +240,7 @@
         if (url.indexOf("msgok") == -1) {
 
         } else {
-            document.getElementById("msg").innerHTML = "O hitórico foi salvo!"; 
+            document.getElementById("msg").innerHTML = "<% out.print(request.getParameter("msgok"));%>";
             $("#alert").delay(2000).addClass("in").fadeOut(4000);
 
         }

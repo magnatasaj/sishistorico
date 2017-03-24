@@ -109,7 +109,7 @@ public class SvEditarEleitor extends HttpServlet {
             if(vazio > 1){
             daoFoto.atualizarImagem(foto, idretorno);
             }
-            response.sendRedirect("editar_eleitor.jsp?id="+el.getId()+"&msgok");
+            response.sendRedirect("editar_eleitor.jsp?id="+el.getId()+"&msgok=Editado com sucesso!");
 
         } catch (FileUploadException ex) {
             Logger.getLogger(SvEditarEleitor.class.getName()).log(Level.SEVERE, null, ex);

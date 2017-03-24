@@ -320,7 +320,7 @@
         if (url.indexOf("msgok") == -1) {
 
         } else {
-            document.getElementById("msg").innerHTML = "Salvo com sucesso!";
+            document.getElementById("msg").innerHTML = "<% out.print(request.getParameter("msgok"));%>";
             $("#alert").delay(2000).addClass("in").fadeOut(4000);
 
         }

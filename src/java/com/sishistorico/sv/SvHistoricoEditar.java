@@ -91,7 +91,7 @@ public class SvHistoricoEditar extends HttpServlet {
 
             DaoHistorico daoHistorico = new DaoHistorico();
             daoHistorico.historico_editar(hi);
-            response.sendRedirect("editar_historico.jsp?id=" + hi.getId() + "&msg='Editado com sucesso!'");
+            response.sendRedirect("editar_historico.jsp?id=" + hi.getId() + "&msgok=Editado com sucesso!");
         } catch (FileUploadException ex) {
             Logger.getLogger(SvHistoricoEditar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

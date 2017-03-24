@@ -61,7 +61,7 @@ public class DaoHistorico {
     
     public void historico_editar(Historico hi) throws SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE `his_historico` SET `data_entrada` = ?, `data_agendada` = ?, `tipo` = ?, `solicitacao` = ? WHERE `his_historico`.`id` = ?;";
+        String sql = "UPDATE `his_historico` SET `data_entrada` = ?, `data_agendada` = ?, `tipo` = ?, `solicitacao` = ?, `situacao` = ? WHERE `his_historico`.`id` = ?";
         ps = conexao.prepareStatement(sql);
         ps.setDate(1, new java.sql.Date(hi.getData_entrada().getTime()));
         if(hi.getData_agendada() != null){
@@ -71,7 +71,8 @@ public class DaoHistorico {
         }
         ps.setInt(3, hi.getTipo());
         ps.setString(4, hi.getSolicitacao());
-        ps.setInt(5, hi.getId());
+        ps.setInt(5,hi.getSituacao());
+        ps.setInt(6, hi.getId());
         
 
         ps.execute();
