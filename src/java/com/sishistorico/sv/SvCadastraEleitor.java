@@ -37,7 +37,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author lubuntu
  */
-@WebServlet(name = "SvCadastraEleitor", urlPatterns = {"/SSvCadastraEleitor"})
+@WebServlet(name = "SvCadastraEleitor", urlPatterns = {"/SvCadastraEleitor"})
 public class SvCadastraEleitor extends HttpServlet {
 
     /**
