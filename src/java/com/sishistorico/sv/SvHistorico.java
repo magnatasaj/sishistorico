@@ -91,6 +91,7 @@ public class SvHistorico extends HttpServlet {
             DaoHistorico daoHistorico = new DaoHistorico();
             daoHistorico.historico_Salvar(hi);
             response.sendRedirect("cadastro_historico.jsp?id=" + hi.getId_eleitor() + "&msgok=Salvo com sucesso!");
+
         } catch (FileUploadException ex) {
             Logger.getLogger(SvHistorico.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {

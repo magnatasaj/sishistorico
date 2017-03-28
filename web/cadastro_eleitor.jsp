@@ -139,8 +139,7 @@
                                             <div class="input-group-addon text-bold">
                                                 OBSERVAÇÃO:
                                             </div>
-                                            <textarea  style="min-height: 100%" id="obs" title="obs" name="obs" class="form-control input-md" wrap="100%">
-                                            </textarea>
+                                            <textarea  style="min-height: 100%" id="obs" title="obs" name="obs" class="form-control input-md" wrap="100%"></textarea>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <div class="form-group">

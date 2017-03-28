@@ -303,16 +303,18 @@
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <input name="id" id="id" value="<% out.print(el.getId()); %>" hidden="true" >
-                                    <input name="id" id="f" value="<% out.print(el.getId());%>" hidden="true" >
 
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
+                            <div class="row" id="botoes">
+                                <div class="col-md-4">
                                     <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Alterar</button>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <button onclick="limpar2()" id="limpar" type="button" class="btn btn-block btn-primary btn-lg disabled">Limpar</button>
+                                </div>
+                                 <div class="col-md-4">
+                                    <button  id="excluir" type="button" class="btn btn-block btn-danger btn-lg">Excluir</button>
                                 </div>
                             </div>
                         </form>
@@ -326,6 +328,7 @@
                                 <i class="fa fa-minus"></i></button>
                             <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
                                 <i class="fa fa-times"></i></button>
+                                
                         </div>
                     </div>
                     <%@include file="/partes/javascript.jsp" %> 
@@ -362,9 +365,25 @@
         } else {
             document.getElementById("msg").innerHTML = "<% out.print(request.getParameter("msgok"));%>";
             $("#alert").delay(2000).addClass("in").fadeOut(4000);
-
         }
     });
+
+        
+         $('#excluir').click(function(event) {
+                var id = $('#id').val();
+                
+                $.post('SvExcluirEleitor', {
+                    id: id
+                    
+                }, function(responseText) {
+
+                   document.getElementById("msg").innerHTML = "Excluido com sucesso!";
+            $("#alert").delay(2000).addClass("in").fadeOut(4000);
+            document.getElementById("botoes").innerHTML = "   Esse usuário não existe mais!";
+
+
+                })
+         });
 
     $("#foto").fileinput({
         language: "pt",
