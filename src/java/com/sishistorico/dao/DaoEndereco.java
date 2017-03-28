@@ -53,4 +53,14 @@ public class DaoEndereco {
         ps.close();
     }
     
+      public void Endereco_Excluir(int id) throws SQLException {
+
+        String sql = "DELETE FROM `his_endereco` WHERE `his_endereco`.`id_user` = ?";
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.execute();
+        ps.close();
+    }
+     
+    
 }

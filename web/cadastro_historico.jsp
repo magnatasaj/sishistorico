@@ -197,6 +197,7 @@
                   <% int id = el.getId();%>
                     <jsp:include page="in_historico.jsp" >
                         <jsp:param name="id" value="<%=id%>" />
+                        <jsp:param name="busca" value="null" />
 
                     </jsp:include>
               </div>

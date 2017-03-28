@@ -43,113 +43,141 @@ public class DaoHistorico {
                 + "                                       VALUES (NULL, ?, ?, ?, ?, ?, ?);";
         ps = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ps.setDate(1, new java.sql.Date(hi.getData_entrada().getTime()));
-        if(hi.getData_agendada() != null){
-        ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
-        }else{
-        ps.setNull(2,Types.DATE);
+        if (hi.getData_agendada() != null) {
+            ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
+        } else {
+            ps.setNull(2, Types.DATE);
         }
         ps.setInt(3, hi.getTipo());
         ps.setInt(4, hi.getSituacao());
         ps.setString(5, hi.getSolicitacao());
         ps.setInt(6, hi.getId_eleitor());
-        
 
         ps.execute();
-        
 
     }
-    
+
+    public void Historico_Excluir(int id) throws SQLException, ClassNotFoundException {
+
+        String sql = "DELETE FROM `his_historico` WHERE `his_historico`.`id` = ?";
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.execute();
+
+    }
+
     public void historico_editar(Historico hi) throws SQLException, ClassNotFoundException {
 
-        String sql = "UPDATE `his_historico` SET `data_entrada` = ?, `data_agendada` = ?, `tipo` = ?, `solicitacao` = ? WHERE `his_historico`.`id` = ?;";
+        String sql = "UPDATE `his_historico` SET `data_entrada` = ?, `data_agendada` = ?, `tipo` = ?, `solicitacao` = ?, situacao = ? WHERE `his_historico`.`id` = ?;";
         ps = conexao.prepareStatement(sql);
         ps.setDate(1, new java.sql.Date(hi.getData_entrada().getTime()));
-        if(hi.getData_agendada() != null){
-        ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
-        }else{
-        ps.setNull(2,Types.DATE);
+        if (hi.getData_agendada() != null) {
+            ps.setDate(2, new java.sql.Date(hi.getData_agendada().getTime()));
+        } else {
+            ps.setNull(2, Types.DATE);
         }
         ps.setInt(3, hi.getTipo());
         ps.setString(4, hi.getSolicitacao());
-        ps.setInt(5, hi.getId());
-        
+        ps.setInt(5, hi.getSituacao());
+
+        ps.setInt(6, hi.getId());
 
         ps.execute();
-        
 
     }
-    
-     public List<Historico> Lista_Historico_Eleitor(int id) throws SQLException, ClassNotFoundException {
+
+    public List<Historico> Lista_Historico_Eleitor(int id) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM `his_historico` WHERE `id_eleitor` = ?";
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, id);
         rs = ps.executeQuery();
         List<Historico> h = new ArrayList();
-         while (rs.next()) {
-             Historico hi = new Historico();
-             hi.setId(rs.getInt("id"));
-             hi.setId_eleitor(rs.getInt("id_eleitor"));
-             hi.setData_entrada(rs.getDate("data_entrada"));
-             hi.setData_agendada(rs.getDate("data_agendada"));
-             hi.setSituacao(rs.getInt("situacao"));
-             hi.setSolicitacao(rs.getString("solicitacao"));
-             hi.setTipo(rs.getInt("tipo"));
-             h.add(hi);
-             
-         }
-        
+        while (rs.next()) {
+            Historico hi = new Historico();
+            hi.setId(rs.getInt("id"));
+            hi.setId_eleitor(rs.getInt("id_eleitor"));
+            hi.setData_entrada(rs.getDate("data_entrada"));
+            hi.setData_agendada(rs.getDate("data_agendada"));
+            hi.setSituacao(rs.getInt("situacao"));
+            hi.setSolicitacao(rs.getString("solicitacao"));
+            hi.setTipo(rs.getInt("tipo"));
+            h.add(hi);
+
+        }
+
         return h;
 
     }
-     
+
+    public List<Historico> Lista_Historico_Busca(String busca) throws SQLException, ClassNotFoundException {
+
+        String sql = "SELECT *  FROM `his_historico` WHERE `data_entrada` LIKE '%" + busca + "%' or `data_agendada` LIKE '%" + busca + "%' or solicitacao LIKE '%" + busca + "%' ";
+        ps = conexao.prepareStatement(sql);
+        rs = ps.executeQuery();
+        List<Historico> h = new ArrayList();
+        while (rs.next()) {
+            Historico hi = new Historico();
+            hi.setId(rs.getInt("id"));
+            hi.setId_eleitor(rs.getInt("id_eleitor"));
+            hi.setData_entrada(rs.getDate("data_entrada"));
+            hi.setData_agendada(rs.getDate("data_agendada"));
+            hi.setSituacao(rs.getInt("situacao"));
+            hi.setSolicitacao(rs.getString("solicitacao"));
+            hi.setTipo(rs.getInt("tipo"));
+            h.add(hi);
+
+        }
+
+        return h;
+
+    }
+
     public List<Historico> Lista_Historico_agendado() throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM `his_historico` WHERE `situacao` = 1 ORDER BY `his_historico`.`data_agendada` ASC";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         List<Historico> h = new ArrayList();
-         while (rs.next()) {
-             Historico hi = new Historico();
-             hi.setId(rs.getInt("id"));
-             hi.setId_eleitor(rs.getInt("id_eleitor"));
-             hi.setData_entrada(rs.getDate("data_entrada"));
-             hi.setData_agendada(rs.getDate("data_agendada"));
-             hi.setSituacao(rs.getInt("situacao"));
-             hi.setSolicitacao(rs.getString("solicitacao"));
-             hi.setTipo(rs.getInt("tipo"));
-             h.add(hi);
-             
-         }
-        
+        while (rs.next()) {
+            Historico hi = new Historico();
+            hi.setId(rs.getInt("id"));
+            hi.setId_eleitor(rs.getInt("id_eleitor"));
+            hi.setData_entrada(rs.getDate("data_entrada"));
+            hi.setData_agendada(rs.getDate("data_agendada"));
+            hi.setSituacao(rs.getInt("situacao"));
+            hi.setSolicitacao(rs.getString("solicitacao"));
+            hi.setTipo(rs.getInt("tipo"));
+            h.add(hi);
+
+        }
+
         return h;
 
-    } 
-     
+    }
+
     public Historico Obj_Historico(int id) throws SQLException, ClassNotFoundException {
 
-       
         String sql = "SELECT * FROM `his_historico` WHERE id = ?";
         ps = conexao.prepareStatement(sql);
         ps.setInt(1, id);
         rs = ps.executeQuery();
-          Historico hi = new Historico();
-         while (rs.next()) {
-           
-             hi.setId(rs.getInt("id"));
-             hi.setId_eleitor(rs.getInt("id_eleitor"));
-             hi.setData_entrada(rs.getDate("data_entrada"));
-             hi.setData_agendada(rs.getDate("data_agendada"));
-             hi.setSituacao(rs.getInt("situacao"));
-             hi.setSolicitacao(rs.getString("solicitacao"));
-             hi.setTipo(rs.getInt("tipo"));
-             
-             
-         }
-        
+        Historico hi = new Historico();
+        while (rs.next()) {
+
+            hi.setId(rs.getInt("id"));
+            hi.setId_eleitor(rs.getInt("id_eleitor"));
+            hi.setData_entrada(rs.getDate("data_entrada"));
+            hi.setData_agendada(rs.getDate("data_agendada"));
+            hi.setSituacao(rs.getInt("situacao"));
+            hi.setSolicitacao(rs.getString("solicitacao"));
+            hi.setTipo(rs.getInt("tipo"));
+
+        }
+
         return hi;
 
-    } 
+    }
 
     public Eleitor Obj_Aluno(String id) throws SQLException {
 

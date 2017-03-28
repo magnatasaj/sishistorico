@@ -64,6 +64,15 @@ public class DaoFoto {
         
         ps.execute();
     }
+    
+    public void ExcluirImagem(int iduser) throws Exception {
+        String SQL = "DELETE FROM `imagem` WHERE `imagem`.`id_user` = ?";
+          
+
+        ps = conexao.prepareStatement(SQL);
+        ps.setInt(1, iduser);
+        ps.execute();
+    }
 
     public Blob recuperaImagem(int iduser) throws Exception {
         String SQL = "SELECT * FROM `imagem` WHERE `id_user` = ?";

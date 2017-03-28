@@ -98,6 +98,18 @@ public class DaoEleitor {
 
     }
     
+     public void Eleitor_Excluir(int id) throws SQLException, ClassNotFoundException {
+
+        String sql = "DELETE FROM `his_eleitor` WHERE `his_eleitor`.`id` = ?";
+        ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+        ps.execute();
+         DaoEndereco end = new DaoEndereco();
+         end.Endereco_Excluir(id); 
+        
+        
+    }
+    
      public List<Eleitor> Lista_Eleitor_Por_Tipo(String ids) throws SQLException, ClassNotFoundException {
 
         String sql = "SELECT * FROM `his_endereco` aa INNER JOIN his_eleitor bb on aa.id_user = bb.id WHERE `tipo` in ("+ids+")";

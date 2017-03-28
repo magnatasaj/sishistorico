@@ -55,7 +55,6 @@
 
                         <td><% out.print(daoTipoHistorico.Obj_tipos_Historico(d.getTipo()).getNome()); %></td>
         <td><a id="ed">Editar</a>-
-            <a on>excluir</a>-
             <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>
 

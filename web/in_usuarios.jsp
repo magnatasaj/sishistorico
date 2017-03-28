@@ -87,8 +87,7 @@
         <td><% out.print(Data.MudarFormatoDeData(d.getData_nascimento())); %></td>
         <td><% out.print(daoTipo.Obj_tipos(d.getTipo()).getNome()); %></td>
         <td><a href="editar_eleitor.jsp?id=<%out.print(d.getId());%>">Editar</a>-
-            <a on>excluir</a>-
-            <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
+        <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
         </td>
 
     </tr>
@@ -105,8 +104,7 @@
 <!-- #Fecha js-->
 <script>
 
-    $(document).ready(function () {
-
+   
 
         $('#tbniveis').DataTable({
             "ordering": true,
@@ -145,7 +143,7 @@
             $('.form-control').focus();
 
         }
-    })
+   
 </script>
 </body>
 </html>

@@ -9,7 +9,13 @@
 <% request.setCharacterEncoding("UTF-8");    %>
 <% DaoHistorico daoHistorico = new DaoHistorico(); %>
 <% DaoTipoHistorico daoTipoHistorico = new DaoTipoHistorico();%>
+<%  String busca = null;
+    if (request.getParameter("busca") != null) {
 
+        busca = request.getParameter("busca");
+
+    }
+  %>
 
 <!--------- tabela ------------------------------------------------------------------------------------------------------------------->
 <h1>Históricos</h1>
@@ -34,8 +40,13 @@
 </tfoot>
 <tbody>
     <%
+         List<Historico> hi = null;
+        if(busca.equals("null")){
         int id = Integer.parseInt(request.getParameter("id"));
-        List<Historico> hi = daoHistorico.Lista_Historico_Eleitor(id);
+       hi = daoHistorico.Lista_Historico_Eleitor(id);
+        }else{
+         hi = daoHistorico.Lista_Historico_Busca(busca);    
+        }
 
         for (Historico d : hi) {
 
@@ -56,8 +67,7 @@
         <td><% out.print(daoTipoHistorico.Obj_tipos_Historico(d.getTipo()).getNome()); %></td>
         <td><% out.print(d.getSituacaoString()); %></td>
 
-        <td> <a href="editar_historico.jsp?id=<%out.print(d.getId());%>">Editar</a>-
-            <a on>excluir</a>-
+        <td> <a href="editar_historico.jsp?id=<%out.print(d.getId());%>">Editar</a>
             
         </td>
 

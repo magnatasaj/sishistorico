@@ -81,7 +81,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CÓDIGO:
                                             </div>
-                                            <input type="text" class="form-control pull-right bg-aqua"  readonly="true" hide name="id"  value="<% out.print(el.getId()); %>" id="nascimento">
+                                            <input type="text" class="form-control pull-right bg-aqua"  readonly="true" hide name="id" id="id"  value="<% out.print(el.getId()); %>" >
 
                                         </div>
                                     </div>
@@ -162,19 +162,23 @@
 
                                         </select>
                                         <div class="help-block with-errors"></div>
+                                                                            <input name="hid" id="hid" value="<% out.print(hi.getId()); %>" hidden="true" >
+
                                     </div></div>        
                             </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input name="idh" id="idh" value="<% out.print(hi.getId()); %>" hidden="true" >
-                            <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Salvar</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button onclick="limpar2()" id="limpar" type="button" class="btn btn-block btn-primary btn-lg disabled">Limpar</button>
-                        </div>
-                    </div>
+                   <div class="row" id="botoes">
+                                <div class="col-md-4">
+                                    <button id="salvar" type="submit" class="btn btn-block btn-success btn-lg">Alterar</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button onclick="limpar2()" id="limpar" type="button" class="btn btn-block btn-primary btn-lg disabled">Limpar</button>
+                                </div>
+                                 <div class="col-md-4">
+                                    <button  id="excluir" type="button" class="btn btn-block btn-danger btn-lg">Excluir</button>
+                                </div>
+                            </div>
                     </form>
                     <!-- fecha formulário -->
                 </div> 
@@ -202,6 +206,7 @@
                   <% int id = el.getId();%>
                     <jsp:include page="in_historico.jsp" >
                         <jsp:param name="id" value="<%=id%>" />
+                         <jsp:param name="busca" value="null" />
 
                     </jsp:include>
               </div>
@@ -235,6 +240,7 @@
 
 <script>
 
+
     $(document).ready(function () {
         var url = location.href;
         if (url.indexOf("msgok") == -1) {
@@ -246,6 +252,22 @@
         }
     });
     
+ $('#excluir').click(function(event) {
+                var id = <% out.print(hi.getId()); %>;
+                
+                $.post('SvExcluirHistorico', {
+                    id: id
+                    
+                }, function(responseText) {
+
+                   document.getElementById("msg").innerHTML = "Excluido com sucesso!";
+            $("#alert").delay(2000).addClass("in").fadeOut(4000);
+            document.getElementById("botoes").innerHTML = "     Esse histórico não existe mais!";
+
+
+                })
+         });
+
 
     $('#sol').wysihtml5();
 $('#data_entrada,#agendado').datepicker({
