@@ -21,6 +21,12 @@
 <!-- Conteúdo ------------------------------------------------------------------------------------------------->
   <div class="content-wrapper">
      <%@include file="/partes/javascript.jsp" %> 
+     <div class="alert alert-warning alert-dismissible" st>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h4><i class="icon fa fa-warning"></i> Vencimento está próximo!</h4>
+                O próximo vencimento da 2º parcela é no dia 10/04/2017!
+                Caso tenha quitado, disconsidere.
+              </div>
      <div class="box">
                     <div class="box-header">
                         <h2>Reltório de aniversariantes</h2>

@@ -112,7 +112,7 @@
                                             <div class="input-group-addon text-bold">
                                                 RG:
                                             </div>
-                                            <input value="<% out.print(el.getRg()); %>" id="rg" title="rg" placeholder="00.000.000-0" data-mask="00.000.000-0" data-mask-selectonfocus="true" name="rg" type="text" class="form-control input-md" maxlength="14">
+                                            <input value="<% out.print(el.getRg()); %>" id="rg" title="rg" placeholder="00.000.000-00" data-mask="00.000.000-00" data-mask-selectonfocus="true" name="rg" type="text" class="form-control input-md" maxlength="14">
 
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                                             <div class="input-group-addon text-bold">
                                                 SUS:
                                             </div>
-                                            <input value="<% out.print(el.getSus()); %>" id="sus" title="sus" placeholder="000 0000 0000 0000" data-mask="000 0000 0000 0000" data-mask-selectonfocus="true" name="sus" type="text" class="form-control input-md" maxlength="15">
+                                            <input value="<% out.print(el.getSus()); %>" id="sus" title="sus" placeholder="000 0000 0000 0000" data-mask="000 0000 0000 0000" data-mask-selectonfocus="true" name="sus" type="text" class="form-control input-md" maxlength="18">
 
                                         </div>
                                     </div>
