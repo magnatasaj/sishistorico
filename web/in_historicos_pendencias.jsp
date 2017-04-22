@@ -54,14 +54,28 @@
                         <td><% out.print(Data.MudarFormatoDeData(d.getData_entrada())); %></td>
 
                         <td><% out.print(daoTipoHistorico.Obj_tipos_Historico(d.getTipo()).getNome()); %></td>
-        <td><a id="ed">Editar</a>-
-            <a href="cadastro_historico.jsp?id=<%out.print(d.getId());%>">inserir</a>
+        <td><a id="ed" href="editar_historico.jsp?id=<%out.print(d.getId());%>">Editar</a>
+            
+        </td>
+
+    </tr>
+    <% }else{%>
+     <tr>
+        <td><% out.print(d.getId()); %></td>
+        <td><% out.print(d.getSolicitacao()); %></td>
+        <td>sem</td>
+        
+            <td>sem</td>
+                        <td><% out.print(Data.MudarFormatoDeData(d.getData_entrada())); %></td>
+
+                        <td><% out.print(daoTipoHistorico.Obj_tipos_Historico(d.getTipo()).getNome()); %></td>
+        <td><a id="ed" href="editar_historico.jsp?id=<%out.print(d.getId());%>">Editar</a>
+            
         </td>
 
     </tr>
 
-
-    <% }};%>
+<%}};%>
 
 </tbody>
 </table>
@@ -78,7 +92,7 @@
         $('#tbniveis1').DataTable({
             "ordering": true,
             "scrollX": true,
-            "order": [[3, 'desc']],
+            "order": [[3, 'asc']],
             "autoWidth": true,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
             dom: 'l,Bfrtip',

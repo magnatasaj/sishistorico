@@ -27,22 +27,7 @@
                 O próximo vencimento da 2º parcela é no dia 10/04/2017!
                 Caso tenha quitado, disconsidere.
               </div>
-     <div class="box">
-                    <div class="box-header">
-                        <h2>Reltório de aniversariantes</h2>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                                <i class="fa fa-minus"></i></button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                                <i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-     <div class="box-body" style="background-color: #FFF">
-                    <%@include file="in_usuarios_aniversario.jsp" %>
-             
-                </div>
-     </div>
+     
     <div class="box">
                     <div class="box-header">
                         <h2>Reltório agendamentos</h2>
@@ -58,7 +43,22 @@
              
                 </div>
      </div>
-     
+  <div class="box">
+                    <div class="box-header">
+                        <h2>Reltório de aniversariantes</h2>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+     <div class="box-body" style="background-color: #FFF">
+                    <%@include file="in_usuarios_aniversario.jsp" %>
+             
+                </div>
+     </div>   
   </div>
 <!-- #Fecha Conteúdo -->
 

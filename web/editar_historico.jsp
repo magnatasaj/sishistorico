@@ -4,6 +4,7 @@
     Author     : Lamara
 --%>
 
+<%@page import="com.sishistorico.funcao.Data"%>
 <%@page import="com.sishistorico.objetos.Historico"%>
 <%@page import="com.sishistorico.dao.DaoHistorico"%>
 <%@page import="com.sishistorico.dao.DaoEleitor"%>
@@ -100,7 +101,7 @@
                                                 Data de Entrada:
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input value="<% hi.getData_entrada(); %>" type="text"  class="form-control pull-right" name="data_entrada" id="data_entrada">
+                                            <input value="<% out.print(Data.MudarFormatoDeData(hi.getData_entrada())); %>" type="text"  class="form-control pull-right" name="data_entrada" id="data_entrada">
 
                                         </div>
                                     </div>
@@ -128,7 +129,7 @@
                                                 Data de agendada:
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input value="<% hi.getData_agendada(); %>" type="text"  class="form-control pull-right" name="agendado" id="agendado">
+                                            <input value="<%if(hi.getData_agendada() !=null){ out.print(Data.MudarFormatoDeData(hi.getData_agendada()));} %>" type="text"  class="form-control pull-right" name="agendado" id="agendado">
 
                                         </div>
                                     </div>
@@ -274,8 +275,8 @@ $('#data_entrada,#agendado').datepicker({
                 autoclose: true,
                 format: 'dd/mm/yyyy',
                 language: 'pt-BR',
-                defaultDate: new Date()
+               // defaultDate: new Date()
 
             });
-            $('#data_entrada').datepicker("update", new Date());
+           // $('#data_entrada').datepicker("update", "<% hi.getData_entrada(); %>");
 </script>
