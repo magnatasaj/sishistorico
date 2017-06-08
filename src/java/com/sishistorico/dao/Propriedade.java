@@ -23,7 +23,7 @@ public class Propriedade {
         props.setProperty("prop.app", "sishistorico");
         props.setProperty("prop.db", "sishistorico");
         props.setProperty("prop.user", "root");
-        props.setProperty("prop.senha", "semanaacademica");
+        props.setProperty("prop.senha", "");
         props.setProperty("prop.host", "127.0.0.1");
         props.setProperty("prop.porta", "3306");
         props.setProperty("prop.tbp", "his_");

@@ -129,7 +129,7 @@
                                                 WHATS:
                                             </div>
                                             <input  id="whats" title="whats" name="whats" type="text" class="form-control input-md"  oninvalid="setCustomValidity('Por Favor digite seu número de telefone.')"
-                                                         placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
+                                                    placeholder="(00) 0 0000-0000" data-mask="(00) 0 0000-0000" data-mask-selectonfocus="true">
 
 
                                         </div>
@@ -202,7 +202,7 @@
                                             <div class="input-group-addon text-bold">
                                                 CIDADE:
                                             </div>
-                                            <input  id="rua" title="cidade" name="cidade" type="text" class="form-control input-md">
+                                            <input  id="cidade" title="cidade" name="cidade" type="text" class="form-control input-md">
                                             <div class="help-block with-errors"></div>
                                         </div></div>
 
@@ -212,6 +212,13 @@
                                                 CEP:
                                             </div>
                                             <input  id="cep" title="Cep" name="cep" type="text" class="form-control input-md">
+                                            <div class="input-group-addon">
+                                                
+                                                <i type="button" onclick="pesquisacep()" class="fa fa-history">
+                                                 
+                                                </i>
+                                               
+                                            </div>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
                                     <div class="form-group">
@@ -260,7 +267,7 @@
                                                 <option id="<% out.print(t.getId());%>" value="<% out.print(t.getId());%>"><% out.print(t.getNome());%></option>
                                                 <%
                                                     }
-                                                    %>
+                                                %>
                                             </select>
                                             <div class="help-block with-errors"></div>
                                         </div></div>
@@ -278,6 +285,80 @@
                         <!-- fecha formulário -->
                     </div> 
                 </div>
+<script type="text/javascript" >
+    
+    function limpa_formulário_cep() {
+            //Limpa valores do formulário de cep.
+           document.getElementById('rua').value="";
+           document.getElementById('bairro').value="";
+          document.getElementById('cidade').value="";
+            //document.getElementById('uf').value=("");
+            //document.getElementById('ibge').value=("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('rua').value=(conteudo.logradouro);
+            document.getElementById('bairro').value=(conteudo.bairro);
+            document.getElementById('cidade').value=(conteudo.localidade);
+            //document.getElementById('uf').value=(conteudo.uf);
+            //document.getElementById('ibge').value=(conteudo.ibge);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+        
+    function pesquisacep() {
+
+        //Nova variável "cep" somente com dígitos.
+        var valor = document.getElementById("cep").value;
+       
+
+        var cep = valor;
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if(validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('rua').value = "...";
+                document.getElementById('bairro').value = "...";
+                document.getElementById('cidade').value = "...";
+               // document.getElementById('uf').value = "...";
+                //document.getElementById('ibge').value = "...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'http://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+            } //end if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //end if.
+        else {
+            //cep sem valor, limpa formulário.
+           limpa_formulário_cep();
+        }
+    };
+
+    </script>                                        
                 <div class="box">
                     <div class="box-header">
                         <div class="box-tools pull-right">
@@ -351,4 +432,5 @@
     });
     $('#ddata').datepicker("update", new Date());
 
+   
 </script>

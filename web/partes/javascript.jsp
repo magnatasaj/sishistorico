@@ -72,6 +72,8 @@
  <!-- select list mais bonito -->
  <script src="js/bootstrap-select.min.js" type="text/javascript"></script>
  <script src="js/maskedinput.js" type="text/javascript"></script>
+ <!-- consultar cep -->
+ <script src="js/xml_request.js" type="text/javascript"></script>
  <script type="text/javascript">
 
 	$("#tbusca").keyup(function(){

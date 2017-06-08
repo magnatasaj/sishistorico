@@ -8,7 +8,7 @@
 
 <aside class="main-sidebar" >
     <!-- sidebar: style can be found in sidebar.less -->
-    <section id="menu" style="margin-top: 15px" class="sidebar affix">
+    <section id="menu" style="margin-top: 15px" >  <!--class="sidebar affix"> -->
 
         <!-- Sidebar user panel -->
         <div class="user-panel">
