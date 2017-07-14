@@ -35,7 +35,7 @@ public class DaoAno {
     }
 
     public List<Integer> Lista_anos() throws SQLException {
-        String sql = "SELECT MAX(data) as maior,MIN(data) as menor FROM (SELECT data from "+tbp+"receita UNION ALL select data from "+tbp+"despesa) as dd";
+        String sql = "SELECT MAX(data_entrada) as maior,MIN(data_entrada) as menor FROM (SELECT data_entrada from his_historico) as dd";
         ps = conexao.prepareStatement(sql);
         rs = ps.executeQuery();
         int menor = 0;

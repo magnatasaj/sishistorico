@@ -8,6 +8,7 @@ html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
+      font-size: 12px;
 }
 body {
   margin: 0;
@@ -1069,6 +1070,7 @@ th {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+          
 }
 *:before,
 *:after {
@@ -1083,7 +1085,7 @@ html {
 }
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1223,8 +1225,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 h1 small,
 .h1 small,
