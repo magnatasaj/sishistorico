@@ -7,6 +7,7 @@ package com.sishistorico.dao;
 
 import com.sishistorico.objetos.Eleitor;
 import com.sishistorico.objetos.Historico;
+import com.sishistorico.objetos.TipoHistorico;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -246,11 +247,11 @@ public class DaoHistorico {
 
         }
 
-        if (!Consultar_Despesa_mes_e_vendido(situacao, ano).equals(",,,,,,,,,,")) {
+        if (!Consultar_solicitacoes(situacao, ano).equals(",,,,,,,,,,")) {
 
             dataset += "{\n"
                     + "                        name: \"" + resultado + "\",\n"
-                    + "                                 data :[" + Consultar_Despesa_mes_e_vendido(situacao, ano)+"]"
+                    + "                                 data :[" + Consultar_solicitacoes(situacao, ano)+"]"
                     + "                        }";
 
         }
@@ -258,7 +259,7 @@ public class DaoHistorico {
         return dataset;
     }
     
-    public String Consultar_Despesa_mes_e_vendido(int situacao, String ano) throws SQLException {
+    public String Consultar_solicitacoes(int situacao, String ano) throws SQLException {
         BigDecimal total = new BigDecimal("0");
         BigDecimal re = new BigDecimal("0");
         String res = "";
@@ -298,5 +299,65 @@ public class DaoHistorico {
 
         return res;
     }
+//fecha gráfico um
+
+//abre gráfico 2    
+public String Historico_Mensal_por_area(String ano) throws SQLException, ClassNotFoundException {
+          
+        String dataset = "";
+        DaoTipoHistorico tipohisotico = new DaoTipoHistorico();
+        List<TipoHistorico> lista = tipohisotico.Lista_tipos_Historico() ;
+        for (TipoHistorico dd : lista) {
+        
+        if (!Consultar_solicitacoes_area(dd.getId(),ano).equals(",,,,,,,,,,")) {
+
+            dataset += "{\n"
+                    + "                        name: \"" +dd.getNome() + "\",\n"
+                    + "                                 data :[" + Consultar_solicitacoes_area(dd.getId(),ano)+"]"
+                    + "                        },";
+
+        }
+        }
+        String datasetcorrigido = dataset.substring(0, dataset.length() - 1);
+        return datasetcorrigido;
+    }
+    
+    public String Consultar_solicitacoes_area(int tipo,String ano) throws SQLException {
+        BigDecimal total = new BigDecimal("0");
+        BigDecimal re = new BigDecimal("0");
+        String res = "";
+        
+        for (int i = 1; i <= 12; i++) {
+            String sql ="";
+            sql = "SELECT COUNT(id) as total FROM `his_historico` WHERE MONTH(data_entrada) = MONTH('" + ano + "-" + i + "-00') AND YEAR(data_entrada) = YEAR('" + ano + "-" + i + "-00') AND `tipo` = "+tipo+"";
+           
+            ps = conexao.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                if (rs.getString("total") != null) {
+                    String valor = rs.getBigDecimal("total").toString();
+                    re = total.add(new BigDecimal(valor));
+                    if (i == 12) {
+                        res += re;
+                    } else {
+                        res += re + ",";
+                    }
+
+                }else {
+                        if (i == 12) {
+                            res += "null";
+                        } else {
+                            res += "null,";
+                        }
+                    }
+                }
+
+            }
+        
+        rs.close();
+
+        return res;
+    }    
     
 }

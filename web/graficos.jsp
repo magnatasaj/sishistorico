@@ -92,7 +92,21 @@
 
                 </div>
             </div>
+            <div class="box" >
+                <div class="box-header" style="height: 100px" >
+                    <h3 class="box-title">Solicitações por área</h3>
 
+                    <div class="box-tools pull-right" >
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div id="container2" style="width:100%; height: 100%;"></div>
+
+                </div>
+            </div>
         </div>
         <!-- #Fecha Conteúdo -->
 
@@ -113,7 +127,7 @@
                 type: 'column'
             },
             title: {
-                text: 'Solicitações'
+                text: ''
             },
             subtitle: {
                 text: ''
@@ -156,7 +170,55 @@
                 }},
              series: [<%out.print(ObDaoHistorico.Historico_Mensal(1, ano)+","+ObDaoHistorico.Historico_Mensal(2, ano));%>]
         });
+        
+var d2 = Highcharts.chart('container2', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: ''
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                labels: {
+                    format: '{value}',
+                    style: {
+                        color: '#89A54E'
+                    }
+                },
+                title: {
+                text: 'Solicitações'
+                }
+            },
+            tooltip: {
+                valueDecimals: 0,
+                valuePrefix: '',
+                shared: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0,
+                    dataLabels: {
+                        enabled: true,
+                        crop: false,
+                        overflow: 'none',
+                        format: "{y:,1f}"
 
+                    }
+
+
+                }},
+             series: [<%out.print(ObDaoHistorico.Historico_Mensal_por_area(ano));%>]
+        });
     
 </script>
 </html>

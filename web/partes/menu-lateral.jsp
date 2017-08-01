@@ -42,7 +42,7 @@
                 <ul id="treeview-menu" class="treeview-menu">
                     
                     <li><a href="home.jsp"><i class="fa fa-angle-right"></i>Home</a></li>
-                    <li><a href="home.jsp"><i class="fa fa-angle-right"></i>Gráficos</a></li>
+                    <li><a href="graficos.jsp"><i class="fa fa-angle-right"></i>Gráficos</a></li>
 
 
                 </ul>

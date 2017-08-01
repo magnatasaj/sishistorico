@@ -61,7 +61,7 @@
                                             <div class="input-group-addon text-bold">
                                                 NOME COMPLETO:*
                                             </div>
-                                            <input id="nome" name="nome" placeholder="" class="form-control small" required="" type="text">
+                                            <input id="nome" name="nome" placeholder="" class="form-control" required="" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
